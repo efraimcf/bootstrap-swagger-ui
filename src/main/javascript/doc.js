@@ -38,11 +38,11 @@ $(function () {
     $(this).find("input.required").each(function () {
 
       // Remove any existing error styles from the input
-      $(this).removeClass('error');
+      $(this).removeClass('is-invalid');
 
       // Tack the error style on if the input is empty..
       if ($(this).val() === '') {
-        $(this).addClass('error');
+        $(this).addClass('is-invalid');
         $(this).wiggle();
         error_free = false;
       }

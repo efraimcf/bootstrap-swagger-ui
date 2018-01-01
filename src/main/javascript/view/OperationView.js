@@ -6,9 +6,8 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
   events: {
     'submit .sandbox': 'submitOperation',
     'click .submit': 'submitOperation',
-    'click  a.toggle-samples': 'toggleSamples'
-//    'mouseenter .api-ic': 'mouseEnter',
-//    'mouseout .api-ic': 'mouseExit'
+    'click .toggle-samples': 'toggleSamples',
+    'click .opperation_link': 'scrollLink'
   },
 
   initialize: function (opts) {
@@ -19,44 +18,6 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
     this.nickname = this.model.nickname;
     this.model.encodedParentId = encodeURIComponent(this.parentId);
     return this;
-  },
-
-  mouseEnter: function (e) {
-    var elem = $(this.el).find('.content');
-    var x = e.pageX;
-    var y = e.pageY;
-    var scX = $(window).scrollLeft();
-    var scY = $(window).scrollTop();
-    var scMaxX = scX + $(window).width();
-    var scMaxY = scY + $(window).height();
-    var wd = elem.width();
-    var hgh = elem.height();
-
-    if (x + wd > scMaxX) {
-      x = scMaxX - wd;
-    }
-
-    if (x < scX) {
-      x = scX;
-    }
-
-    if (y + hgh > scMaxY) {
-      y = scMaxY - hgh;
-    }
-
-    if (y < scY) {
-      y = scY;
-    }
-
-    var pos = {};
-    pos.top = y;
-    pos.left = x;
-    elem.css(pos);
-    $(e.currentTarget.parentNode).find('#api_information_panel').show();
-  },
-
-  mouseExit: function (e) {
-    $(e.currentTarget.parentNode).find('#api_information_panel').hide();
   },
 
   // Note: copied from CoffeeScript compiled file
@@ -299,9 +260,9 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
     form = $('.sandbox', $(this.el));
     error_free = true;
     form.find('input.required:visible').each(function () {
-      $(this).removeClass('error');
+      $(this).removeClass('is-invalid');
       if (jQuery.trim($(this).val()) === '') {
-        $(this).addClass('error');
+        $(this).addClass('is-invalid');
         $(this).wiggle({
           callback: (function (_this) {
             return function () {
@@ -313,9 +274,9 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
       }
     });
     form.find('textarea.required').each(function () {
-      $(this).removeClass('error');
+      $(this).removeClass('is-invalid');
       if (jQuery.trim($(this).val()) === '') {
-        $(this).addClass('error');
+        $(this).addClass('is-invalid');
         $(this).wiggle({
           callback: (function (_this) {
             return function () {
@@ -632,7 +593,7 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
     var pre;
     var code;
     if (!content) {
-      code = $('<code />').text('no content');
+      code = $('<code class="rounded" />').text('no content');
       pre = $('<pre class="json" />').append(code);
 
       // JSON
@@ -643,22 +604,22 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
       } catch (_error) {
         json = 'can\'t parse JSON.  Raw result:\n\n' + content;
       }
-      code = $('<code />').text(json);
+      code = $('<code class="rounded" />').text(json);
       pre = $('<pre class="json" />').append(code);
 
       // XML
     } else if (contentType === 'application/xml' || /\+xml$/.test(contentType)) {
-      code = $('<code />').text(this.formatXml(content));
+      code = $('<code class="rounded" />').text(this.formatXml(content));
       pre = $('<pre class="xml" />').append(code);
 
       // HTML
     } else if (contentType === 'text/html') {
-      code = $('<code />').html(_.escape(content));
-      pre = $('<pre class="xml" />').append(code);
+      code = $('<code class="rounded" />').html(_.escape(content));
+      pre = $('<pre class="html" />').append(code);
 
       // Plain Text
     } else if (/text\/plain/.test(contentType)) {
-      code = $('<code />').text(content);
+      code = $('<code class="rounded" />').text(content);
       pre = $('<pre class="plain" />').append(code);
 
 
@@ -699,20 +660,21 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
 
       // Anything else (CORS)
     } else {
-      code = $('<code />').text(content);
+      code = $('<code class="rounded" />').text(content);
       pre = $('<pre class="json" />').append(code);
     }
 
     var response_body = pre;
-    $('.request_url', $(this.el)).html('<pre></pre>');
-    $('.request_url pre', $(this.el)).text(url);
-    $('.response_code', $(this.el)).html('<pre>' + response.status + '</pre>');
+    $('.request_url', $(this.el)).html('<pre><code class="hljs rounded"></code></pre>');
+    $('.request_url pre code', $(this.el)).text(url);
+    $('.response_code', $(this.el)).html('<pre><code class="hljs rounded">' + response.status + '</code></pre>');
     $('.response_body', $(this.el)).html(response_body);
-    $('.response_headers', $(this.el)).html('<pre>' + _.escape(JSON.stringify(response.headers, null, '  ')).replace(/\n/g, '<br>') + '</pre>');
+    // $('.response_headers', $(this.el)).html('<pre><code class="rounded">' + _.escape(JSON.stringify(response.headers, null, '  ')).replace(/\n/g, '<br>') + '</code></pre>');
+    $('.response_headers', $(this.el)).html('<pre><code class="rounded json">' + JSON.stringify(response.headers, null, '  ') + '</code></pre>');
     $('.response', $(this.el)).slideDown();
-    $('.response_hider', $(this.el)).show();
     $('.response_throbber', $(this.el)).hide();
-    var response_body_el = $('.response_body', $(this.el))[0];
+    var response_body_el = $('.response_body pre code', $(this.el))[0],
+        response_headers_el = $('.response_headers pre code', $(this.el))[0];
 
     $(".submit", $(this.el)).button("reset");
 
@@ -721,8 +683,25 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
     if (opts.highlightSizeThreshold && response.data.length > opts.highlightSizeThreshold) {
       return response_body_el;
     } else {
-      return hljs.highlightBlock(response_body_el);
+      hljs.highlightBlock(response_body_el);
+      hljs.highlightBlock(response_headers_el);
+      return
     }
+  },
+
+  scrollLink: function (e) {
+    function o(e) {
+      if ("self" === e) {
+        var n = $(window).scrollTop();
+        return $(window).scrollTop(n)
+      }
+
+      return $(window).scrollTop(e)
+    }
+
+    var n = $(e.currentTarget),
+        t = n.parents(".endpoint").first().offset().top;
+    o(t);
   },
 
   toggleSamples: function (e) {
@@ -735,17 +714,24 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
     }
 
     var r = $("#resources"),
-      n = $(e.currentTarget);
+        n = $(e.currentTarget);
+       // operation = n.parents(".operation");
 
-    r.toggleClass("samples-collapsed").addClass("is-collapsing");
-    n.find('.text').text("Collapse samples");
-    r.hasClass("samples-collapsed") && n.find('.text').text("Show samples");
+    r.find(".content").toggleClass("col-lg-8 col-lg-6");
+    r.find(".samples").toggleClass("col-lg-4 col-lg-6");
+    r.find(".samples .model-signature").toggleClass("d-none")
 
-    setTimeout(function () {
+    r.toggleClass("samples-collapsed");
+    n.find('.text').text("Hide Samples");
+    r.hasClass("samples-collapsed") && n.find('.text').text("Show Samples");
+
+    // setTimeout(function () {
       var t = n.parents(".endpoint").first().offset().top;
-      r.removeClass("is-collapsing");
+      // r.removeClass("is-collapsing");
+      // o(t)
       o(t)
-    }, 500)
-  }
+    // }, 500)
+  },
+
 
 });

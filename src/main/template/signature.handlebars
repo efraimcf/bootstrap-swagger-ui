@@ -1,16 +1,14 @@
-<h4 class="sample-title" data-control data-toggle="collapse"
-    data-target="#sample-{{id}}">{{type}} Sample</h4>
-<div data-content class="collapse in" id="sample-{{id}}">
-    <div class="snippet">
+<h6 class="sample-title text-white text-uppercase collapsed mb-3 d-none" data-control data-toggle="collapse" data-target="#sample-{{id}}">{{type}} Sample</h6>
+<div data-content class="collapse row hljs d-none" id="sample-{{id}}">
+    <div class="snippet col-12">
         <pre><code>{{sampleJSON}}</code></pre>
     </div>
 </div>
 
 {{#if signature}}
-    <h4 class="schema-title collapsed" data-control data-toggle="collapse"
-        data-target="#schema-{{id}}">{{type}} Schema</h4>
-    <div data-content class="collapse" id="schema-{{id}}">
-        <div class="description">
+    <h6 class="schema-title text-white text-uppercase mt-3 mb-3" data-control data-toggle="collapse" data-target="#schema-{{id}}">{{type}} Schema</h6>
+    <div data-content class="collapse show row hljs" id="schema-{{id}}">
+        <div class="description col-12">
             {{{signature}}}
         </div>
     </div>

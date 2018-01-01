@@ -102,6 +102,11 @@ gulp.task('copy', ['less'], function() {
     .pipe(gulp.dest('./dist/lib'))
     .on('error', log);
 
+  gulp
+    .src(['./vendor/**/*.{js,map,css}'])
+    .pipe(gulp.dest('./dist/vendor'))
+    .on('error', log);
+
   // copy all files inside html folder
   gulp
     .src(['./src/main/html/**/*'])
@@ -113,7 +118,7 @@ gulp.task('copy', ['less'], function() {
  * Watch for changes and recompile
  */
 gulp.task('watch', function() {
-  return watch(['./src/**/*.{js,less,handlebars}'], function() {
+  return watch(['./src/**/*.{js,less,handlebars,html}'], function() {
     gulp.start('default');
   });
 });

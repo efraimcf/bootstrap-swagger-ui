@@ -3,10 +3,10 @@
 SwaggerUi.Views.MainView = Backbone.View.extend({
 
   events: {
-    'click .mobile-nav, [data-navigator]': 'clickSidebarNav',
+    // 'click .mobile-nav, [data-navigator]': 'clickSidebarNav',
     'click [data-resource]': 'clickResource',
-    'click [data-tg-switch]': 'toggleToken',
-    'click [data-close]': 'closeToken',
+    // 'click [data-tg-switch]': 'toggleToken',
+    // 'click [data-close]': 'closeToken',
     'click #explore' : 'showCustom'
   },
 
@@ -161,7 +161,7 @@ SwaggerUi.Views.MainView = Backbone.View.extend({
     var resourceView = new SwaggerUi.Views.ResourceView({
       model: resource,
       router: this.router,
-      tagName: 'li',
+      tagName: 'div',
       id: 'resource_' + resource.id,
       className: 'resource',
       auths: auths,
@@ -193,11 +193,13 @@ SwaggerUi.Views.MainView = Backbone.View.extend({
     resource.id = resource.id.replace(/\s/g, '_');
     var sidebarView = new SwaggerUi.Views.SidebarHeaderView({
       model: resource,
-      tagName: 'div',
-      className: function () {
-        return i == 0 ? 'active' : ''
-      },
+      tagName: 'nav',
+      className: 'nav flex-column parent_menu',
+      // className: function () {
+      //   return i == 0 ? 'nav flex-column' : 'nav flex-column'
+      // },
       attributes: {
+        // "id": 'resource_' + resource.name,
         "data-resource": 'resource_' + resource.name,
         "label": resource.name
       },
@@ -211,45 +213,45 @@ SwaggerUi.Views.MainView = Backbone.View.extend({
     $(this.el).html('');
   },
 
-  clickSidebarNav: function (e) {
-    $('.sticky-nav').toggleClass("nav-open")
-  },
+  // clickSidebarNav: function (e) {
+  //   $('#sticky-top').toggleClass("nav-open")
+  // },
 
   clickResource: function (e) {
     if (!$(e.target).is(".item")) {
       var n = $(e.target).find(".item").first();
-      $('.sticky-nav').find("[data-resource].active").removeClass("active");
+      $('#sticky-top').find("[data-resource].active").removeClass("active");
       $(e.target).find("[data-resource]").first().addClass("active");
       n.trigger("click")
     }
   },
 
-  toggleToken: function (e) {
-    var t = $(".token-generator"),
-      tg = $("[data-tg-switch]");
+  // toggleToken: function (e) {
+  //   var t = $(".token-generator"),
+  //     tg = $("[data-tg-switch]");
 
-    t.toggleClass("hide");
-    t.hasClass("hide") ? tg.removeClass("active") : tg.addClass("active");
-    t.parents(".sticky-nav").trigger("mobile_nav:update")
-  },
+  //   t.toggleClass("hide");
+  //   t.hasClass("hide") ? tg.removeClass("active") : tg.addClass("active");
+  //   t.parents("#sticky-top").trigger("mobile_nav:update")
+  // },
 
-  closeToken: function (e) {
-    var t = $(".token-generator"),
-      tg = $("[data-tg-switch]");
+  // closeToken: function (e) {
+  //   var t = $(".token-generator"),
+  //     tg = $("[data-tg-switch]");
 
-    t.addClass("hide");
-    tg.removeClass("active");
-    t.parents(".sticky-nav").trigger("mobile_nav:update")
-  },
+  //   t.addClass("hide");
+  //   tg.removeClass("active");
+  //   t.parents("#sticky-top").trigger("mobile_nav:update")
+  // },
 
-  openToken: function (e) {
-    var t = $(".token-generator"),
-      tg = $("[data-tg-switch]");
+  // openToken: function (e) {
+  //   var t = $(".token-generator"),
+  //     tg = $("[data-tg-switch]");
 
-    t.removeClass("hide");
-    tg.removeClass("active");
-    t.parents(".sticky-nav").trigger("mobile_nav:update")
-  },
+  //   t.removeClass("hide");
+  //   tg.removeClass("active");
+  //   t.parents("#sticky-top").trigger("mobile_nav:update")
+  // },
 
   showCustom: function(e){
     if (e) {

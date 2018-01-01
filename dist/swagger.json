@@ -1,1069 +1,1030 @@
 {
-    "swagger": "2.0",
-    "info": {
-        "title": "Maps4News API",
-        "version": "0.1"
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a sample server Petstore server.  You can find out more about Swagger at <a href=\"http://swagger.io\">http://swagger.io</a> or on irc.freenode.net, #swagger.  For this sample, you can use the api key \"special-key\" to test the authorization filters",
+    "version": "1.0.0",
+    "title": "Swagger Petstore",
+    "termsOfService": "http://helloreverb.com/terms/",
+    "contact": {
+      "email": "apiteam@swagger.io"
     },
-    "host": "api.maps4news.com",
-    "schemes": [
-        "https"
-    ],
-    "basePath": "/v1",
-    "produces": [
-        "application/json"
-    ],
-    "paths": {
-        "/login": {
-            "post": {
-                "description": "This endpoint allows the user to authenticate and obtain an api key.\n",
-                "parameters": [
-                    {
-                        "name": "email",
-                        "in": "query",
-                        "description": "The user's email",
-                        "required": true,
-                        "type": "string",
-                        "format": "email"
-                    },
-                    {
-                        "name": "password",
-                        "in": "query",
-                        "description": "The user's password",
-                        "required": true,
-                        "type": "string",
-                        "format": "password"
-                    }
-                ],
-                "tags": [
-                    "User",
-                    "Authentication"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Api Token",
-                        "schema": {
-                            "$ref": "#/definitions/Token"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
-                    },
-                    "401": {
-                        "description": "Invalid or missing api token",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
-                    }
-                }
-            }
-        },
-        "/users": {
-            "get": {
-                "description": "Get all users you have acess to.\n\n- Organisation admins will get all users in their organisation.\n\n- Normal users will only get their own user object.\n",
-                "tags": [
-                    "User"
-                ],
-                "security": [
-                    {
-                        "api_key": []
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Array of user objects.",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/User"
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Invalid or missing api token.",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
-                    }
-                }
-            }
-        },
-        "/users/{id}": {
-            "get": {
-                "description": "Used to get a user that you have access to.",
-                "tags": [
-                    "User"
-                ],
-                "security": [
-                    {
-                        "api_key": []
-                    }
-                ],
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/id"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "User object.",
-                        "schema": {
-                            "$ref": "#/definitions/User"
-                        }
-                    },
-                    "401": {
-                        "description": "Invalid or missing api token.",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
-                    }
-                }
-            }
-        },
-        "/users/me": {
-            "get": {
-                "description": "Alias of `/users/{id}`. (All subroutes are compatible. e.g. `/users/me/svgs`)\n\nGet the current users's object\n",
-                "tags": [
-                    "User"
-                ],
-                "security": [
-                    {
-                        "api_key": []
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Array of svg objects.",
-                        "schema": {
-                            "$ref": "#/definitions/User"
-                        }
-                    },
-                    "401": {
-                        "description": "Invalid or missing api token.",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
-                    }
-                }
-            }
-        },
-        "/users/{id}/dimensions": {
-            "get": {
-                "description": "Get all the dimensions the user has access to.",
-                "tags": [
-                    "User",
-                    "Dimension"
-                ],
-                "security": [
-                    {
-                        "api_key": []
-                    }
-                ],
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/id"
-                    },
-                    {
-                        "$ref": "#/parameters/page"
-                    },
-                    {
-                        "$ref": "#/parameters/per_page"
-                    },
-                    {
-                        "$ref": "#/parameters/X-Page"
-                    },
-                    {
-                        "$ref": "#/parameters/X-Per-Page"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Array of dimension objects.",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/Dimension"
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Invalid or missing api token.",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
-                    }
-                }
-            }
-        },
-        "/users/{id}/svgs": {
-            "get": {
-                "description": "Get all the svgs the user has access to.",
-                "tags": [
-                    "User",
-                    "Svg"
-                ],
-                "security": [
-                    {
-                        "api_key": []
-                    }
-                ],
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/id"
-                    },
-                    {
-                        "$ref": "#/parameters/page"
-                    },
-                    {
-                        "$ref": "#/parameters/per_page"
-                    },
-                    {
-                        "$ref": "#/parameters/X-Page"
-                    },
-                    {
-                        "$ref": "#/parameters/X-Per-Page"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Array of svg objects.",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/Svg"
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Invalid or missing api token.",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
-                    }
-                }
-            }
-        }
-    },
-    "parameters": {
-        "id": {
-            "name": "id",
-            "in": "path",
-            "description": "The ID of the resource.",
-            "required": true,
-            "type": "integer"
-        },
-        "page": {
-            "name": "page",
-            "in": "query",
-            "description": "The page you want to visit.\n\n- Default: 1\n",
-            "required": false,
-            "type": "integer"
-        },
-        "per_page": {
-            "name": "per_page",
-            "in": "query",
-            "description": "The number of resources on one page\n\n- Default: 12\n\n- Minimum: 1\n\n- Maximum: 50\n",
-            "type": "integer",
-            "required": false
-        },
-        "X-Per-Page": {
-            "name": "X-Per-Page",
-            "in": "header",
-            "description": "Same as `per_page`",
-            "type": "integer",
-            "required": false
-        },
-        "X-Page": {
-            "name": "X-Page",
-            "in": "header",
-            "type": "integer",
-            "description": "Same as `page`",
-            "required": false
-        }
-    },
-    "securityDefinitions": {
-        "api_key": {
-            "type": "apiKey",
-            "name": "X-Api-Token",
-            "description": "The api token",
-            "in": "header"
-        }
-    },
-    "definitions": {
-        "timestamp": {
-            "type": "string",
-            "format": "DateTime",
-            "description": "ISO 8601/RFC3339 formatted DateTime",
-            "example": "2016-03-17T16:35:01.000Z"
-        },
-        "Token": {
-            "type": "object",
-            "properties": {
-                "token": {
-                    "type": "string",
-                    "description": "Unique user token used for identification",
-                    "example": "Pjde6XYkfOhRErZaFn0ibNVbXGP4CE8UcUpMDBg4"
-                }
-            }
-        },
-        "Error": {
-            "type": "object",
-            "properties": {
-                "error": {
-                    "type": "string",
-                    "description": "Error message",
-                    "example": "An error occoured"
-                }
-            }
-        },
-        "Contract": {
-            "type": "object",
-            "properties": {
-                "name": {
-                    "type": "string",
-                    "example": "string"
-                },
-                "organisation": {
-                    "$ref": "#/definitions/Organisation"
-                },
-                "credits": {
-                    "type": "integer",
-                    "description": "The amount of credits that this contract adds to the organisation. If the value is 0 then the contract is a flatrate contract.",
-                    "example": 100
-                },
-                "credit_period": {
-                    "type": "integer",
-                    "description": "The number of credits that can be used within a certain period."
-                },
-                "period_length": {
-                    "type": "integer",
-                    "description": "The lenght of a period, in days."
-                },
-                "date_start": {
-                    "$ref": "#/definitions/timestamp"
-                },
-                "date_end": {
-                    "$ref": "#/definitions/timestamp"
-                },
-                "created_at": {
-                    "$ref": "#/definitions/timestamp"
-                },
-                "updated_at": {
-                    "$ref": "#/definitions/timestamp"
-                }
-            }
-        },
-        "Dimension": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "integer",
-                    "example": 47
-                },
-                "dimension_set_id": {
-                    "type": "integer",
-                    "example": 1
-                },
-                "name": {
-                    "type": "string",
-                    "example": "A5 landscape"
-                },
-                "width": {
-                    "type": "number",
-                    "format": "float"
-                },
-                "height": {
-                    "type": "number",
-                    "format": "float"
-                },
-                "created_at": {
-                    "$ref": "#/definitions/timestamp"
-                },
-                "updated_at": {
-                    "$ref": "#/definitions/timestamp"
-                }
-            }
-        },
-        "DimensionSet": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "integer",
-                    "example": 1
-                },
-                "name": {
-                    "type": "string",
-                    "example": "Standard"
-                },
-                "created_at": {
-                    "$ref": "#/definitions/timestamp"
-                },
-                "updated_at": {
-                    "$ref": "#/definitions/timestamp"
-                },
-                "dimensions": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/Dimension"
-                    }
-                }
-            }
-        },
-        "Faq": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "integer",
-                    "description": "Identifier",
-                    "example": 1
-                },
-                "title": {
-                    "type": "string",
-                    "description": "Question",
-                    "example": "Frequently asked question"
-                },
-                "description": {
-                    "type": "string",
-                    "description": "Answer",
-                    "example": "Unescaped HTML formatted answer"
-                },
-                "created_at": {
-                    "$ref": "#/definitions/timestamp"
-                },
-                "updated_at": {
-                    "$ref": "#/definitions/timestamp"
-                }
-            }
-        },
-        "Feature": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "integer",
-                    "example": 4
-                },
-                "name": {
-                    "type": "string",
-                    "example": "Web"
-                },
-                "description": {
-                    "type": "string",
-                    "example": "Allows web output"
-                },
-                "created_at": {
-                    "$ref": "#/definitions/timestamp"
-                },
-                "updated_at": {
-                    "$ref": "#/definitions/timestamp"
-                }
-            }
-        },
-        "Font": {
-            "type": "object",
-            "properties": {
-                "name": {
-                    "type": "string",
-                    "example": "Helvetica-Condensed-Bold"
-                },
-                "style": {
-                    "type": "string",
-                    "enum": [
-                        "normal",
-                        "italic",
-                        "oblique",
-                        "bold",
-                        "thin"
-                    ],
-                    "example": "normal"
-                },
-                "weight": {
-                    "type": "integer",
-                    "minimum": 0,
-                    "example": 700
-                },
-                "created_at": {
-                    "$ref": "#/definitions/timestamp"
-                },
-                "updated_at": {
-                    "$ref": "#/definitions/timestamp"
-                }
-            }
-        },
-        "FontFamily": {
-            "type": "object",
-            "properties": {
-                "name": {
-                    "type": "string",
-                    "example": "Helvetica Condensed"
-                },
-                "fonts": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/Font"
-                    }
-                },
-                "created_at": {
-                    "$ref": "#/definitions/timestamp"
-                },
-                "updated_at": {
-                    "$ref": "#/definitions/timestamp"
-                }
-            }
-        },
-        "IP": {
-            "type": "object",
-            "properties": {
-                "user_id": {
-                    "type": "integer",
-                    "example": 1
-                },
-                "ip_address": {
-                    "type": "string",
-                    "description": "IPv4 or IPv6 address"
-                },
-                "created_at": {
-                    "$ref": "#/definitions/timestamp"
-                },
-                "updated_at": {
-                    "$ref": "#/definitions/timestamp"
-                }
-            }
-        },
-        "Job": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "integer",
-                    "example": 1
-                },
-                "user_id": {
-                    "type": "integer",
-                    "example": 1
-                },
-                "mapstyle_set": {
-                    "$ref": "#/definitions/MapstyleSet"
-                },
-                "title": {
-                    "type": "string",
-                    "description": "Title for the job"
-                },
-                "description": {
-                    "type": "string",
-                    "description": "Description of the job"
-                },
-                "created_at": {
-                    "$ref": "#/definitions/timestamp"
-                },
-                "updated_at": {
-                    "$ref": "#/definitions/timestamp"
-                }
-            }
-        },
-        "JobResult": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "integer",
-                    "example": 1
-                },
-                "job": {
-                    "$ref": "#/definitions/Job"
-                },
-                "job_revision": {
-                    "$ref": "#/definitions/JobRevision"
-                },
-                "mapstyle": {
-                    "$ref": "#/definitions/Mapstyle"
-                },
-                "status": {
-                    "type": "integer",
-                    "example": 1
-                },
-                "software_version": {
-                    "type": "integer",
-                    "format": "double",
-                    "example": 1,
-                    "description": "The version of the backend that was used"
-                },
-                "interface_version": {
-                    "type": "string",
-                    "example": "2.6.0b",
-                    "description": "The version of the frontend that was used"
-                },
-                "fix": {
-                    "type": "boolean",
-                    "example": true
-                },
-                "process_start": {
-                    "$ref": "#/definitions/timestamp"
-                },
-                "process_end": {
-                    "$ref": "#/definitions/timestamp"
-                },
-                "dealt_with": {
-                    "type": "boolean",
-                    "example": true,
-                    "description": "If the issue has been resolved"
-                },
-                "log": {
-                    "type": "string",
-                    "description": "The  log from the render job"
-                },
-                "preview_path": {
-                    "type": "string"
-                },
-                "file_path": {
-                    "type": "string"
-                },
-                "bought": {
-                    "type": "boolean",
-                    "example": true,
-                    "description": "If the user paid for the map with a credit"
-                },
-                "created_at": {
-                    "$ref": "#/definitions/timestamp"
-                },
-                "updated_at": {
-                    "$ref": "#/definitions/timestamp"
-                }
-            }
-        },
-        "JobRevision": {
-            "type": "object",
-            "properties": {
-                "job_id": {
-                    "type": "integer",
-                    "example": 1
-                },
-                "revision": {
-                    "type": "integer",
-                    "example": 1
-                },
-                "object": {
-                    "type": "string",
-                    "format": "json"
-                },
-                "screenshot_url": {
-                    "type": "string",
-                    "example": "http://url.to/image.png"
-                },
-                "archived": {
-                    "type": "boolean",
-                    "description": "If the revision was used in a render job"
-                },
-                "created_at": {
-                    "$ref": "#/definitions/timestamp"
-                },
-                "updated_at": {
-                    "$ref": "#/definitions/timestamp"
-                }
-            }
-        },
-        "JobShare": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "integer",
-                    "example": 1
-                },
-                "job": {
-                    "$ref": "#/definitions/Job"
-                },
-                "visibility": {
-                    "type": "string",
-                    "enum": [
-                        "private",
-                        "organisation",
-                        "public"
-                    ],
-                    "description": "Who can view the jobshare."
-                },
-                "hashkey": {
-                    "type": "integer",
-                    "example": 1769919554
-                },
-                "created_at": {
-                    "$ref": "#/definitions/timestamp"
-                },
-                "updated_at": {
-                    "$ref": "#/definitions/timestamp"
-                }
-            }
-        },
-        "Language": {
-            "type": "object",
-            "properties": {
-                "name": {
-                    "type": "string",
-                    "example": "English"
-                },
-                "code": {
-                    "type": "string",
-                    "description": "3 character language code",
-                    "example": "eng"
-                },
-                "locale": {
-                    "type": "string",
-                    "example": "en_GB"
-                },
-                "created_at": {
-                    "$ref": "#/definitions/timestamp"
-                },
-                "updated_at": {
-                    "$ref": "#/definitions/timestamp"
-                }
-            }
-        },
-        "Mapstyle": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "integer",
-                    "example": 1
-                },
-                "mapstyle_set_id": {
-                    "type": "integer",
-                    "example": 1
-                },
-                "name": {
-                    "type": "string",
-                    "example": "NEWS10k.xml"
-                },
-                "preview_image": {
-                    "type": "string",
-                    "description": "url to the mapstyle preview image"
-                },
-                "scale_min": {
-                    "minimum": 0,
-                    "example": 0,
-                    "description": "The lowest scale that the Mapstyle can be used at. Must be smaller than scale_min"
-                },
-                "scale_max": {
-                    "minimum": 1,
-                    "example": 16249,
-                    "description": "The highest scale that the Mapstyle can be used at. Must be greater than scale_min"
-                },
-                "description": {
-                    "type": "string",
-                    "example": 70
-                },
-                "created_at": {
-                    "$ref": "#/definitions/timestamp"
-                },
-                "updated_at": {
-                    "$ref": "#/definitions/timestamp"
-                }
-            }
-        },
-        "MapstyleSet": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "integer",
-                    "example": 1
-                },
-                "name": {
-                    "type": "string",
-                    "example": "Clear News"
-                },
-                "description": {
-                    "type": "string",
-                    "example": "A clean and simplified bright map style."
-                },
-                "version": {
-                    "type": "number",
-                    "format": "double",
-                    "example": 2
-                },
-                "supports_svg": {
-                    "type": "boolean",
-                    "description": "Indicates if the MapstyleSet supports SVG output",
-                    "example": false
-                },
-                "created_at": {
-                    "$ref": "#/definitions/timestamp"
-                },
-                "updated_at": {
-                    "$ref": "#/definitions/timestamp"
-                },
-                "mapstyles": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/Mapstyle"
-                    }
-                }
-            }
-        },
-        "Notification": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "integer",
-                    "example": 1
-                },
-                "title": {
-                    "type": "string",
-                    "example": "Maps4News Maintenance message"
-                },
-                "description": {
-                    "type": "string",
-                    "example": "Maps4News Maintenance Message: Maintenance is scheduled for Tuesday, 13 October 2015, between 05:00 AM and 05:30 AM GMT. {...}"
-                },
-                "created_at": {
-                    "$ref": "#/definitions/timestamp"
-                },
-                "updated_at": {
-                    "$ref": "#/definitions/timestamp"
-                }
-            }
-        },
-        "Organisation": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "integer",
-                    "example": 1
-                },
-                "name": {
-                    "type": "string",
-                    "example": "ACME Inc Editors"
-                },
-                "company": {
-                    "type": "string",
-                    "example": "ACME Inc"
-                },
-                "city": {
-                    "type": "string",
-                    "example": "New York City"
-                },
-                "country": {
-                    "type": "string",
-                    "example": "United States"
-                },
-                "address": {
-                    "type": "string",
-                    "example": "14 North Moore Street"
-                },
-                "credits": {
-                    "type": "integer",
-                    "description": "Availible credits",
-                    "example": 27
-                },
-                "sales_representative": {
-                    "$ref": "#/definitions/User"
-                },
-                "manager": {
-                    "$ref": "#/definitions/User"
-                },
-                "fonts": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/Font"
-                    }
-                },
-                "created_at": {
-                    "$ref": "#/definitions/timestamp"
-                },
-                "updated_at": {
-                    "$ref": "#/definitions/timestamp"
-                },
-                "users": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/User"
-                    }
-                }
-            }
-        },
-        "SingleSignOn": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "integer",
-                    "example": 1
-                },
-                "user": {
-                    "$ref": "#/definitions/User"
-                },
-                "sso_id": {
-                    "type": "integer",
-                    "example": 1
-                },
-                "type": {
-                    "type": "string",
-                    "example": "accounts.google.com",
-                    "description": "The sso service"
-                },
-                "created_at": {
-                    "$ref": "#/definitions/timestamp"
-                },
-                "updated_at": {
-                    "$ref": "#/definitions/timestamp"
-                }
-            }
-        },
-        "StudioLog": {
-            "type": "object"
-        },
-        "Svg": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "integer",
-                    "example": 1
-                },
-                "svg_set": {
-                    "$ref": "#/definitions/SvgSet"
-                },
-                "name": {
-                    "type": "string",
-                    "example": "White Box",
-                    "description": "The name of the svg"
-                },
-                "svg_string": {
-                    "type": "string",
-                    "format": "svg"
-                },
-                "resize_factor": {
-                    "type": "integer",
-                    "format": "float",
-                    "example": 0.1
-                },
-                "created_at": {
-                    "$ref": "#/definitions/timestamp"
-                },
-                "updated_at": {
-                    "$ref": "#/definitions/timestamp"
-                }
-            }
-        },
-        "SvgSet": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "integer",
-                    "example": 1
-                },
-                "name": {
-                    "type": "string",
-                    "example": "Textboxes",
-                    "description": "The name of the svg set"
-                },
-                "svg_set_type": {
-                    "$ref": "#/definitions/SvgSetType"
-                },
-                "supports_interactive": {
-                    "type": "boolean",
-                    "example": true,
-                    "description": "If the svg set is supported by interactive"
-                },
-                "import": {
-                    "type": "boolean",
-                    "example": true
-                },
-                "created_at": {
-                    "$ref": "#/definitions/timestamp"
-                },
-                "updated_at": {
-                    "$ref": "#/definitions/timestamp"
-                }
-            }
-        },
-        "SvgSetType": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "integer",
-                    "example": 1
-                },
-                "name": {
-                    "type": "string",
-                    "example": "Icons"
-                }
-            }
-        },
-        "User": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "integer",
-                    "example": 1
-                },
-                "name": {
-                    "type": "string",
-                    "description": "Full Name",
-                    "example": "John Doe"
-                },
-                "email": {
-                    "type": "string",
-                    "example": "john.doe@example.com"
-                },
-                "phone": {
-                    "type": "string",
-                    "example": "+1 555 2368",
-                    "description": "Who you gonna call? https://nnmm.nl/?F7p"
-                },
-                "profession": {
-                    "type": "string",
-                    "example": "Editor"
-                },
-                "organisation_id": {
-                    "type": "integer",
-                    "example": 1
-                },
-                "language": {
-                    "$ref": "#/definitions/Language"
-                },
-                "created_at": {
-                    "$ref": "#/definitions/timestamp"
-                },
-                "updated_at": {
-                    "$ref": "#/definitions/timestamp"
-                }
-            }
-        },
-        "VectorLayer": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "integer",
-                    "example": 1
-                },
-                "name": {
-                    "type": "string"
-                },
-                "path": {
-                    "type": "string"
-                },
-                "bounding_box": {
-                    "type": "string"
-                },
-                "version": {
-                    "type": "integer",
-                    "format": "double"
-                },
-                "image": {
-                    "type": "string"
-                },
-                "scale_min": {
-                    "minimum": 0,
-                    "example": 0,
-                    "description": "The lowest scale that the vector layer can be used at. Must be smaller than scale_max."
-                },
-                "scale_max": {
-                    "minimum": 1,
-                    "example": 16249,
-                    "description": "The highest scale that the vector layer can be used at. Must be greater than scale_min."
-                },
-                "created_at": {
-                    "$ref": "#/definitions/timestamp"
-                },
-                "updated_at": {
-                    "$ref": "#/definitions/timestamp"
-                }
-            }
-        }
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
+  },
+  "host": "petstore.swagger.io",
+  "basePath": "/v2",
+  "tags": [
+    {
+      "name": "pet",
+      "description": "Everything about your Pets",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://swagger.io"
+      }
+    },
+    {
+      "name": "store",
+      "description": "Access to Petstore orders"
+    },
+    {
+      "name": "user",
+      "description": "Operations about user",
+      "externalDocs": {
+        "description": "Find out more about our store",
+        "url": "http://swagger.io"
+      }
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/pet": {
+      "post": {
+        "tags": [
+          "pet"
+        ],
+        "summary": "Add a new pet to the store",
+        "description": "",
+        "operationId": "addPet",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Pet object that needs to be added to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Pet"
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "pet"
+        ],
+        "summary": "Update an existing pet",
+        "description": "",
+        "operationId": "updatePet",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Pet object that needs to be added to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Pet"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Pet not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      }
+    },
+    "/pet/findByStatus": {
+      "get": {
+        "tags": [
+          "pet"
+        ],
+        "summary": "Finds Pets by status",
+        "description": "Multiple status values can be provided with comma seperated strings",
+        "operationId": "findPetsByStatus",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Status values that need to be considered for filter",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "available",
+                "pending",
+                "sold"
+              ]
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Pet"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      }
+    },
+    "/pet/findByTags": {
+      "get": {
+        "tags": [
+          "pet"
+        ],
+        "summary": "Finds Pets by tags",
+        "description": "Muliple tags can be provided with comma seperated strings. Use tag1, tag2, tag3 for testing.",
+        "operationId": "findPetsByTags",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "tags",
+            "in": "query",
+            "description": "Tags to filter by",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Pet"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid tag value"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ],
+        "deprecated": true
+      }
+    },
+    "/pet/{petId}": {
+      "get": {
+        "tags": [
+          "pet"
+        ],
+        "summary": "Find pet by ID",
+        "description": "Returns a single pet",
+        "operationId": "getPetById",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "petId",
+            "in": "path",
+            "description": "ID of pet to return",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Pet"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Pet not found"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "pet"
+        ],
+        "summary": "Updates a pet in the store with form data",
+        "description": "",
+        "operationId": "updatePetWithForm",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "petId",
+            "in": "path",
+            "description": "ID of pet that needs to be updated",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "Updated name of the pet",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "formData",
+            "description": "Updated status of the pet",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "pet"
+        ],
+        "summary": "Deletes a pet",
+        "description": "",
+        "operationId": "deletePet",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "api_key",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "name": "petId",
+            "in": "path",
+            "description": "Pet id to delete",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid pet value"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      }
+    },
+    "/pet/{petId}/uploadImage": {
+      "post": {
+        "tags": [
+          "pet"
+        ],
+        "summary": "uploads an image",
+        "description": "",
+        "operationId": "uploadFile",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "petId",
+            "in": "path",
+            "description": "ID of pet to update",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "additionalMetadata",
+            "in": "formData",
+            "description": "Additional data to pass to server",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "file",
+            "in": "formData",
+            "description": "file to upload",
+            "required": false,
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      }
+    },
+    "/store/inventory": {
+      "get": {
+        "tags": [
+          "store"
+        ],
+        "summary": "Returns pet inventories by status",
+        "description": "Returns a map of status codes to quantities",
+        "operationId": "getInventory",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/store/order": {
+      "post": {
+        "tags": [
+          "store"
+        ],
+        "summary": "Place an order for a pet",
+        "description": "",
+        "operationId": "placeOrder",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "order placed for purchasing the pet",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
+          },
+          "400": {
+            "description": "Invalid Order"
+          }
+        }
+      }
+    },
+    "/store/order/{orderId}": {
+      "get": {
+        "tags": [
+          "store"
+        ],
+        "summary": "Find purchase order by ID",
+        "description": "For valid response try integer IDs with value <= 5 or > 10. Other values will generated exceptions",
+        "operationId": "getOrderById",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "ID of pet that needs to be fetched",
+            "required": true,
+            "type": "string",
+            "maximum": 5.0,
+            "minimum": 1.0
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Order not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "store"
+        ],
+        "summary": "Delete purchase order by ID",
+        "description": "For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors",
+        "operationId": "deleteOrder",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "ID of the order that needs to be deleted",
+            "required": true,
+            "type": "string",
+            "minimum": 1.0
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Order not found"
+          }
+        }
+      }
+    },
+    "/user": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Create user",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "createUser",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user/createWithArray": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Creates list of users with given input array",
+        "description": "",
+        "operationId": "createUsersWithArrayInput",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "List of user object",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user/createWithList": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Creates list of users with given input array",
+        "description": "",
+        "operationId": "createUsersWithListInput",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "List of user object",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user/login": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Logs user into the system",
+        "description": "",
+        "operationId": "loginUser",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "description": "The user name for login",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "description": "The password for login in clear text",
+            "required": true,
+            "type": "string",
+            "format": "password"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "string"
+            },
+            "headers": {
+              "X-Rate-Limit": {
+                "type": "integer",
+                "format": "int32",
+                "description": "calls per hour allowed by the user"
+              },
+              "X-Expires-After": {
+                "type": "string",
+                "format": "date-time",
+                "description": "date in UTC when toekn expires"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid username/password supplied"
+          }
+        }
+      }
+    },
+    "/user/logout": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Logs out current logged in user session",
+        "description": "",
+        "operationId": "logoutUser",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user/{username}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get user by user name",
+        "description": "",
+        "operationId": "getUserByName",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The name that needs to be fetched. Use user1 for testing. ",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "description": "Invalid username supplied"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Updated user",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "updateUser",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "name that need to be deleted",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Updated user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid user supplied"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Delete user",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "deleteUser",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The name that needs to be deleted",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid username supplied"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "petstore_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "http://petstore.swagger.io/api/oauth/dialog",
+      "flow": "implicit",
+      "scopes": {
+        "write:pets": "modify pets in your account",
+        "read:pets": "read your pets"
+      }
+    },
+    "api_key": {
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "Order": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "petId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "shipDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "string",
+          "description": "Order Status",
+          "enum": [
+            "placed",
+            "approved",
+            "delivered"
+          ]
+        },
+        "complete": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "xml": {
+        "name": "Order"
+      }
+    },
+    "Category": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Category"
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "username": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "userStatus": {
+          "type": "integer",
+          "format": "int32",
+          "description": "User Status"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "Tag": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Tag"
+      }
+    },
+    "Pet": {
+      "type": "object",
+      "required": [
+        "name",
+        "photoUrls"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "category": {
+          "$ref": "#/definitions/Category"
+        },
+        "name": {
+          "type": "string",
+          "example": "doggie"
+        },
+        "photoUrls": {
+          "type": "array",
+          "xml": {
+            "name": "photoUrl",
+            "wrapped": true
+          },
+          "items": {
+            "type": "string"
+          }
+        },
+        "tags": {
+          "type": "array",
+          "xml": {
+            "name": "tag",
+            "wrapped": true
+          },
+          "items": {
+            "$ref": "#/definitions/Tag"
+          }
+        },
+        "status": {
+          "type": "string",
+          "description": "pet status in the store",
+          "enum": [
+            "available",
+            "pending",
+            "sold"
+          ]
+        }
+      },
+      "xml": {
+        "name": "Pet"
+      }
+    },
+    "ApiResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
 }

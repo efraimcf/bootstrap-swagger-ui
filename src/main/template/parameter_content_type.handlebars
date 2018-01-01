@@ -1,12 +1,14 @@
-<div>
-    <label for="parameterContentType">Content type:</label>
-    <select class="parameter ui-form-control" name="parameterContentType">
-        {{#if consumes}}
-            {{#each consumes}}
-                <option value="{{{this}}}">{{{this}}}</option>
-            {{/each}}
-        {{else}}
-            <option value="application/json">application/json</option>
-        {{/if}}
-    </select>
+<div class="media">
+    <label class="align-self-center mb-0 mr-3" for="parameterContentType">Content type:</label>
+    <div class="media-body">
+        <select class="parameter form-control form-control-sm" name="parameterContentType">
+            {{#if consumes}}
+                {{#each consumes}}
+                    <option value="{{{this}}}">{{{this}}}</option>
+                {{/each}}
+            {{else}}
+                <option value="application/json">application/json</option>
+            {{/if}}
+        </select>
+    </div>
 </div>

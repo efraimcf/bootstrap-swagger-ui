@@ -7,7 +7,6 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var sass = require('gulp-sass');
-// var less = require('gulp-less');
 var handlebars = require('gulp-handlebars');
 var wrap = require('gulp-wrap');
 var declare = require('gulp-declare');
@@ -85,23 +84,6 @@ gulp.task('sass', function () {
     .pipe(gulp.dest('./src/main/html/css/'))
     .pipe(connect.reload());
 });
-
-/**
- * Processes less files into CSS files
- */
-// gulp.task('less', ['clean'], function() {
-
-//   return gulp
-//     .src([
-//       './src/main/less/screen.less',
-//       './src/main/less/print.less',
-//       './src/main/less/reset.less'
-//     ])
-//     .pipe(less())
-//     .on('error', log)
-//     .pipe(gulp.dest('./src/main/html/css/'))
-//     .pipe(connect.reload());
-// });
 
 /**
  * Copy lib and html folders

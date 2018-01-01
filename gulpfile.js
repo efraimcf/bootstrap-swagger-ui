@@ -6,7 +6,8 @@ var clean = require('gulp-clean');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
-var less = require('gulp-less');
+var sass = require('gulp-sass');
+// var less = require('gulp-less');
 var handlebars = require('gulp-handlebars');
 var wrap = require('gulp-wrap');
 var declare = require('gulp-declare');
@@ -74,27 +75,38 @@ gulp.task('dist', ['clean'], function() {
 });
 
 /**
- * Processes less files into CSS files
+ * Processes sass files into CSS files
  */
-gulp.task('less', ['clean'], function() {
-
+gulp.task('sass', function () {
   return gulp
-    .src([
-      './src/main/less/screen.less',
-      './src/main/less/print.less',
-      './src/main/less/reset.less'
-    ])
-    .pipe(less())
-    .on('error', log)
+    .src('./src/main/sass/**.scss')
+    .pipe(sass({includePaths: ['./scss'], outputStyle: 'compressed'})
+    .on('error', sass.logError))
     .pipe(gulp.dest('./src/main/html/css/'))
     .pipe(connect.reload());
 });
 
+/**
+ * Processes less files into CSS files
+ */
+// gulp.task('less', ['clean'], function() {
+
+//   return gulp
+//     .src([
+//       './src/main/less/screen.less',
+//       './src/main/less/print.less',
+//       './src/main/less/reset.less'
+//     ])
+//     .pipe(less())
+//     .on('error', log)
+//     .pipe(gulp.dest('./src/main/html/css/'))
+//     .pipe(connect.reload());
+// });
 
 /**
  * Copy lib and html folders
  */
-gulp.task('copy', ['less'], function() {
+gulp.task('copy', ['sass'], function() {
 
   // copy JavaScript files inside lib folder
   gulp
@@ -118,7 +130,7 @@ gulp.task('copy', ['less'], function() {
  * Watch for changes and recompile
  */
 gulp.task('watch', function() {
-  return watch(['./src/**/*.{js,less,handlebars,html}'], function() {
+  return watch(['./src/**/*.{js,scss,handlebars,html}'], function() {
     gulp.start('default');
   });
 });

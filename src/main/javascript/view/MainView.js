@@ -4,7 +4,7 @@ SwaggerUi.Views.MainView = Backbone.View.extend({
 
   events: {
     'click [data-resource]': 'clickResource',
-    'click #explore' : 'showCustom'
+    'click #explore' : 'showCustom',
   },
 
   apisSorter: {
@@ -94,36 +94,33 @@ SwaggerUi.Views.MainView = Backbone.View.extend({
   },
 
   render: function () {
-    if (this.model.securityDefinitions) {      
+    // Render the outer container for resources
+    $(this.el).html(Handlebars.templates.main(this.model));
+
+    // Add Auth Options
+    var apiKeys = [];
+    if (this.model.securityDefinitions) {
       for (var name in this.model.securityDefinitions) {
         var auth = this.model.securityDefinitions[name];
         var button;
 
-        console.log(auth.type);
-
-        if (auth.type === 'oauth2' && $('#apikey_button').length === 0) {
-          button = new SwaggerUi.Views.ApiKeyButton({model: auth, router: this.router}).render().el;
-          // console.log(button);
-          // $(this.el).find(".auth_main_container").append("HIIIII");
+        if (auth.type === 'apiKey') {
+          apiKeys.push(auth);
         }
 
-        if (auth.type === 'apiKey' && $('#apikey_button').length === 0) {
-          button = new SwaggerUi.Views.ApiKeyButton({model: auth, router: this.router}).render().el;
-          $('.auth_main_container').append(button);
-        }
-
-        if (auth.type === 'basicAuth' && $('#basic_auth_button').length === 0) {
-          button = new SwaggerUi.Views.BasicAuthButton({model: auth, router: this.router}).render().el;
-          $('.auth_main_container').append(button);
+        if (auth.type === 'http') {
+          if(auth.scheme === 'basic'){
+            button = new SwaggerUi.Views.BasicAuthButton({model: auth, router: this.router}).render().el;
+          } else {
+            button = new SwaggerUi.Views.BearerButton({model: auth, router: this.router}).render().el;
+          }
+          $('#auth_options', $(this.el)).append(button);
         }
       }
     }
-
-    // Render the outer container for resources
-    $(this.el).html(Handlebars.templates.main(this.model));
+    this.addApiKeys(apiKeys);
 
     // Render each resource
-
     var resources = {};
     var counter = 0;
     for (var i = 0; i < this.model.apisArray.length; i++) {
@@ -141,13 +138,20 @@ SwaggerUi.Views.MainView = Backbone.View.extend({
       this.addSidebarHeader(resource, i);
     }
 
-    // if (window.location.hash.length === 0 ) {
-    //   var n = $(this.el).find("#resources_nav [data-resource]").first();
-    //   n.trigger("click");
-    //   $(window).scrollTop(0)
-    // }
-
     return this;
+  },
+
+  addApiKeys: function (apikeys) {
+    if(apikeys.length > 0){
+      var button;
+      if(apikeys.length == 1){
+        var auth = apikeys[0];
+        button = new SwaggerUi.Views.ApiKeyButton({model: auth, router: this.router}).render().el;
+      } else {
+        button = new SwaggerUi.Views.ApiKeys({model: apikeys, router: this.router}).render().el;
+      }
+      $('#auth_options', $(this.el)).append(button);
+    }
   },
 
   addResource: function (resource, auths) {
@@ -168,25 +172,6 @@ SwaggerUi.Views.MainView = Backbone.View.extend({
     });
     $('#resources').append(resourceView.render().el);
   },
-
-  addSidebarToken: function (resource, i) {
-    resource.id = resource.id.replace(/\s/g, '_');
-    var sidebarView = new SwaggerUi.Views.SidebarHeaderView({
-      model: resource,
-      tagName: 'div',
-      className: function () {
-        return i == 0 ? 'active' : ''
-      },
-      attributes: {
-        "data-resource": 'resource_' + resource.name,
-        "label": resource.name
-      },
-      router: this.router,
-      swaggerOptions: this.options.swaggerOptions
-    });
-    $('#token-generator', $(this.el)).append(sidebarView.render().el);
-  },
-
 
   addSidebarHeader: function (resource, i) {
     resource.id = resource.id.replace(/\s/g, '_');
@@ -222,8 +207,7 @@ SwaggerUi.Views.MainView = Backbone.View.extend({
       e.preventDefault();
     }
     this.trigger('update-swagger-ui', {
-      url: $('#input_baseUrl').val(),
-      apiKey: $('#input_apiKey').val()
+      url: $('#input_baseUrl').val()
     });
   }
 });

@@ -54,7 +54,7 @@ SwaggerUi.Views.SidebarHeaderView = Backbone.View.extend({
     function scroll(elem) {
       var i = $("#sticky_nav").outerHeight();
       var r = $("#" + elem).offset().top - i - 10;
-      matchMedia() && (r = $("#" + elem).offset().top - 10);
+      r = $("#" + elem).offset().top - 10;
       scrollT(r)
     }
 
@@ -74,11 +74,6 @@ SwaggerUi.Views.SidebarHeaderView = Backbone.View.extend({
     /* update navigation */
     function updateUrl(element) {
       history.pushState && history.pushState(null, null, element)
-    }
-
-    function matchMedia() {
-      return true;
-      // return window.matchMedia("(min-width: 992px)").matches;
     }
 
     function scrollT(e) {

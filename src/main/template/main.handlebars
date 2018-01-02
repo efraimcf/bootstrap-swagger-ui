@@ -5,20 +5,8 @@
                 <button type="button" class="close d-sm-block d-lg-none" data-toggle="collapse" data-target="#auth_main_container">
                   <span aria-hidden="true">&times;</span>
                 </button>
-                <div class="auth_main_container">
-                    <div class="form-group">
-                        <label for="input_baseUrl">URL</label>
-                        <input type="text" autocorrect="off" class="form-control form-control-sm" id="input_baseUrl" placeholder="http://example.com/api">
-                    </div>
-                    <div class="form-group">
-                        <label for="input_apiKey">Token</label>
-                        <div class="input-group input-group-sm">
-                          <input type="text" autocorrect="off" class="form-control" id="input_apiKey" placeholder="Enter api key or token">
-                          <div class="input-group-append">
-                            <button data-add-scope id="explore" class="btn btn-secondary" type="button"><i class="fa fa-arrow-right"></i></button>
-                          </div>
-                        </div>
-                    </div>
+                <button data-add-scope id="explore" class="btn btn-secondary d-none" type="button">Explore</button>
+                <div id="auth_options">
                 </div>
             </div>
         </div>

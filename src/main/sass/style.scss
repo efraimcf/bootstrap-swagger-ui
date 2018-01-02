@@ -2,4 +2,7 @@
 @import "./include/variables";
 @import "../vendor/bootstrap/scss/bootstrap";
 
-@import "./include/hljs";
+@import "./include/highlighter";
+@import "./include/sidebar";
+@import "./include/explorer";
+@import "./include/samples";

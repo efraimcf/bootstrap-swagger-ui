@@ -1,15 +1,25 @@
-<h6 class="sample-title text-white text-uppercase collapsed mb-3 d-none" data-control data-toggle="collapse" data-target="#sample-{{id}}">{{type}} Sample</h6>
-<div data-content class="collapse row hljs d-none" id="sample-{{id}}">
-    <div class="snippet col-12">
-        <pre><code>{{sampleJSON}}</code></pre>
-    </div>
-</div>
-
-{{#if signature}}
-    <h6 class="schema-title text-white text-uppercase mt-3 mb-3" data-control data-toggle="collapse" data-target="#schema-{{id}}">{{type}} Schema</h6>
-    <div data-content class="collapse show row hljs" id="schema-{{id}}">
-        <div class="description col-12">
-            {{{signature}}}
+<div id="accordion-{{id}}" role="tablist" data-children=".sample-item">
+    <div class="sample-item">
+        <h6 class="sample-title text-white text-uppercase mb-3">
+            <a href="#sample-{{id}}" data-control data-toggle="collapse" data-parent="#accordion-{{id}}">{{type}} Sample</a>
+        </h6>
+        <div data-content class="collapse show row" id="sample-{{id}}">
+            <div class="sampple-snippet col-12">
+                <pre><code>{{sampleJSON}}</code></pre>
+            </div>
         </div>
     </div>
-{{/if}}
+
+    {{#if signature}}
+        <div class="sample-item">
+            <h6 class="schema-title text-white text-uppercase collapsed mt-3 mb-3">
+                <a href="#schema-{{id}}" data-control data-toggle="collapse" data-parent="#accordion-{{id}}">{{type}} Schema</a>
+            </h6>
+            <div data-content class="collapse row" id="schema-{{id}}">
+                <div class="schema-description col-12">
+                    {{{signature}}}
+                </div>
+            </div>
+        </div>
+    {{/if}}
+</div>

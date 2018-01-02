@@ -1,20 +1,22 @@
 <div class="operations">
     <div class="{{method}} operation" id="{{parentId}}_{{nickname}}">
         <div class="row">
-            <div class="content col-lg-6 pt-3 pb-3">
+            <div class="content col-lg-8 pt-3 pb-3">
                 <div class="heading mb-3">
                     <div class="d-flex align-items-center">
                         <div class="mr-auto">
-                            <a class="opperation_link" href="#!/{{encodedParentId}}/{{nickname}}"><h2 class="operation-title">{{summary}}</h2></a>
+                            <h3 class="operation-title">
+                                <a class="opperation_link" href="#!/{{encodedParentId}}/{{nickname}}">{{summary}}</a>
+                            </h3>
                         </div>
-                        <a href="javascript:;" class="toggle-samples text-nowrap text-muted">
+                        <a href="javascript:;" class="toggle-samples d-none d-lg-block text-nowrap text-muted">
                             <small class="text">Show Samples</small> <i class="fa fa-code"></i>
                         </a>
                     </div>
-                    <h4>
+                    <h5 class="text-truncate">
                         <span class="http_method badge {{#if deprecated}}badge-secondary{{else}}{{methodBadgeClass method}}{{/if}}">{{method}}</span>
                         <span class="path text-muted">{{path}}</span>
-                    </h4>
+                    </h5>
                 </div>
 
                 {{#if deprecated}}
@@ -62,8 +64,8 @@
                     {{/if}}
                 </form>
             </div>
-            <div class="samples col-lg-6 pt-3 pb-3 bg-secondary">
-                <span class="model-signature"></span>
+            <div class="samples d-none d-lg-block col-lg-4 pt-3 pb-3 bg-secondary">
+                <span class="model-signature d-none"></span>
             </div>
         </div>
 
@@ -97,8 +99,6 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
-<div class="row">
-    <hr class="m-0"/>
+    </div> 
+    <div class="divider"></div>
 </div>

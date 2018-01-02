@@ -1,0 +1,9 @@
+#resources_container{
+    .operations{
+        .divider{
+            @include make-row();
+            background: lighten($hljs-bg, 5%);
+            height: 1px;
+        }
+    }
+}

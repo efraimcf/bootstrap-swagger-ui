@@ -11,7 +11,7 @@ var handlebars = require('gulp-handlebars');
 var wrap = require('gulp-wrap');
 var declare = require('gulp-declare');
 var watch = require('gulp-watch');
-var connect = require('gulp-connect');
+var browserSync = require('browser-sync').create();
 var header = require('gulp-header');
 var pkg = require('./package.json');
 var order = require('gulp-order');
@@ -70,7 +70,7 @@ gulp.task('dist', ['clean'], function() {
     .pipe(rename({extname: '.min.js'}))
     .on('error', log)
     .pipe(gulp.dest('./dist'))
-    .pipe(connect.reload());
+    .pipe(browserSync.stream());
 });
 
 /**
@@ -82,7 +82,7 @@ gulp.task('sass', function () {
     .pipe(sass({includePaths: ['./scss'], outputStyle: 'compressed'})
     .on('error', sass.logError))
     .pipe(gulp.dest('./src/main/html/css/'))
-    .pipe(connect.reload());
+    .pipe(browserSync.stream());
 });
 
 /**
@@ -120,11 +120,12 @@ gulp.task('watch', function() {
 /**
  * Live reload web server of `dist`
  */
-gulp.task('connect', function() {
-  connect.server({
-    root: 'dist',
-    livereload: true
-  });
+gulp.task('browser-sync', function() {
+    browserSync.init({
+        server: {
+            baseDir: "./dist"
+        }
+    });
 });
 
 function log(error) {
@@ -133,4 +134,4 @@ function log(error) {
 
 
 gulp.task('default', ['dist', 'copy']);
-gulp.task('serve', ['connect', 'watch']);
+gulp.task('serve', ['browser-sync', 'watch']);

@@ -3,10 +3,7 @@
 SwaggerUi.Views.MainView = Backbone.View.extend({
 
   events: {
-    // 'click .mobile-nav, [data-navigator]': 'clickSidebarNav',
     'click [data-resource]': 'clickResource',
-    // 'click [data-tg-switch]': 'toggleToken',
-    // 'click [data-close]': 'closeToken',
     'click #explore' : 'showCustom'
   },
 
@@ -97,10 +94,18 @@ SwaggerUi.Views.MainView = Backbone.View.extend({
   },
 
   render: function () {
-    if (this.model.securityDefinitions) {
+    if (this.model.securityDefinitions) {      
       for (var name in this.model.securityDefinitions) {
         var auth = this.model.securityDefinitions[name];
         var button;
+
+        console.log(auth.type);
+
+        if (auth.type === 'oauth2' && $('#apikey_button').length === 0) {
+          button = new SwaggerUi.Views.ApiKeyButton({model: auth, router: this.router}).render().el;
+          // console.log(button);
+          // $(this.el).find(".auth_main_container").append("HIIIII");
+        }
 
         if (auth.type === 'apiKey' && $('#apikey_button').length === 0) {
           button = new SwaggerUi.Views.ApiKeyButton({model: auth, router: this.router}).render().el;
@@ -136,17 +141,11 @@ SwaggerUi.Views.MainView = Backbone.View.extend({
       this.addSidebarHeader(resource, i);
     }
 
-    $('.propWrap').hover(function onHover() {
-      $('.optionsWrapper', $(this)).show();
-    }, function offhover() {
-      $('.optionsWrapper', $(this)).hide();
-    });
-
-    if (window.location.hash.length === 0 ) {
-      var n = $(this.el).find("#resources_nav [data-resource]").first();
-      n.trigger("click");
-      $(window).scrollTop(0)
-    }
+    // if (window.location.hash.length === 0 ) {
+    //   var n = $(this.el).find("#resources_nav [data-resource]").first();
+    //   n.trigger("click");
+    //   $(window).scrollTop(0)
+    // }
 
     return this;
   },
@@ -195,11 +194,7 @@ SwaggerUi.Views.MainView = Backbone.View.extend({
       model: resource,
       tagName: 'nav',
       className: 'nav flex-column parent_menu',
-      // className: function () {
-      //   return i == 0 ? 'nav flex-column' : 'nav flex-column'
-      // },
       attributes: {
-        // "id": 'resource_' + resource.name,
         "data-resource": 'resource_' + resource.name,
         "label": resource.name
       },
@@ -213,10 +208,6 @@ SwaggerUi.Views.MainView = Backbone.View.extend({
     $(this.el).html('');
   },
 
-  // clickSidebarNav: function (e) {
-  //   $('#sticky-top').toggleClass("nav-open")
-  // },
-
   clickResource: function (e) {
     if (!$(e.target).is(".item")) {
       var n = $(e.target).find(".item").first();
@@ -225,33 +216,6 @@ SwaggerUi.Views.MainView = Backbone.View.extend({
       n.trigger("click")
     }
   },
-
-  // toggleToken: function (e) {
-  //   var t = $(".token-generator"),
-  //     tg = $("[data-tg-switch]");
-
-  //   t.toggleClass("hide");
-  //   t.hasClass("hide") ? tg.removeClass("active") : tg.addClass("active");
-  //   t.parents("#sticky-top").trigger("mobile_nav:update")
-  // },
-
-  // closeToken: function (e) {
-  //   var t = $(".token-generator"),
-  //     tg = $("[data-tg-switch]");
-
-  //   t.addClass("hide");
-  //   tg.removeClass("active");
-  //   t.parents("#sticky-top").trigger("mobile_nav:update")
-  // },
-
-  // openToken: function (e) {
-  //   var t = $(".token-generator"),
-  //     tg = $("[data-tg-switch]");
-
-  //   t.removeClass("hide");
-  //   tg.removeClass("active");
-  //   t.parents("#sticky-top").trigger("mobile_nav:update")
-  // },
 
   showCustom: function(e){
     if (e) {

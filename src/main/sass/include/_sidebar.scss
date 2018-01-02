@@ -1,0 +1,11 @@
+#swagger_sidebar{
+    @include media-breakpoint-up(lg) {
+        display: block !important;
+    }
+
+    #auth_main_container{
+        @include media-breakpoint-up(lg) {
+            display: block !important;
+        }
+    }
+}

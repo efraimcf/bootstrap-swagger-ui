@@ -715,22 +715,19 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
 
     var r = $("#resources"),
         n = $(e.currentTarget);
-       // operation = n.parents(".operation");
 
     r.find(".content").toggleClass("col-lg-8 col-lg-6");
+    r.find(".content").toggleClass("col-xl-7 col-xl-6");
     r.find(".samples").toggleClass("col-lg-4 col-lg-6");
+    r.find(".samples").toggleClass("col-xl-5 col-xl-6");
     r.find(".samples .model-signature").toggleClass("d-none")
 
     r.toggleClass("samples-collapsed");
     n.find('.text').text("Hide Samples");
     r.hasClass("samples-collapsed") && n.find('.text').text("Show Samples");
 
-    // setTimeout(function () {
-      var t = n.parents(".endpoint").first().offset().top;
-      // r.removeClass("is-collapsing");
-      // o(t)
-      o(t)
-    // }, 500)
+    var t = n.parents(".operation").find(".samples").first().offset().top;
+    o(t)
   },
 
 

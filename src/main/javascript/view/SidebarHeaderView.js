@@ -47,14 +47,11 @@ SwaggerUi.Views.SidebarHeaderView = Backbone.View.extend({
       scroll(elem.attr("data-endpoint"));
       setSelected(elem);
       updateUrl(elem.attr("href"))
-      // updateUrl(eln.find(".path a").first().attr("href"))
     }
 
     /* scroll */
     function scroll(elem) {
-      var i = $("#sticky_nav").outerHeight();
-      var r = $("#" + elem).offset().top - i - 10;
-      r = $("#" + elem).offset().top - 10;
+      r = $("#" + elem).offset().top;
       scrollT(r)
     }
 

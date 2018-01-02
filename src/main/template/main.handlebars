@@ -1,7 +1,7 @@
-<div id="swagger_sidebar" class="collapse col-12 col-lg-3">
-    <div id="auth_main_container" class="collapse">
+<div id="swagger_sidebar" class="collapse col-lg-3 col-xl-2">
+    <div id="auth_main_container" class="collapse {{showAuth securityDefinitions}}">
         <div class="row bg-light">
-            <div class="col-12 pt-3">
+            <div class="col-12">
                 <button type="button" class="close d-sm-block d-lg-none" data-toggle="collapse" data-target="#auth_main_container">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -11,16 +11,15 @@
             </div>
         </div>
     </div>
-    <div class="sticky-top mb-3">
+    <div class="mb-3">
         <div id="sticky_nav" class="pt-2 pb-2">
-            <div class="row">
-                <div data-navigator>
-                    <div id="resources_nav" data-children=".parent_menu">
-                        <nav class="nav flex-column d-lg-none">
-                            <a href="#auth_main_container" class="nav-link" data-toggle="collapse">Swagger Resource</a>
-                        </nav>
-                    </div>
-                </div>
+            <div class="row" data-navigator>
+                <div id="resources_nav" data-children=".parent_menu">
+                    <nav class="nav flex-column d-lg-none {{showAuth securityDefinitions}}">
+                        <a href="#auth_main_container" class="nav-link" data-toggle="collapse">Swagger Resource</a>
+                    </nav>
+                    <div class="col-12 d-none d-lg-block"><label class="text-uppercase mt-3 mb-0">API Reference</label></div>
+                </div>                    
             </div>
         </div>
         <div class="card bg-light d-none d-lg-block">
@@ -49,6 +48,6 @@
     </div>
 </div>
 
-<div id="resources_container" class="col-12 col-lg-9">
+<div id="resources_container" class="col-lg-9 offset-lg-3 col-xl-10 offset-xl-2">
     <div id="resources" class="samples-collapsed"></div>
 </div>

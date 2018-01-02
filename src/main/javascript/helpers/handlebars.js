@@ -20,6 +20,20 @@ Handlebars.registerHelper('methodBadgeClass', function(method) {
     }
 });
 
+Handlebars.registerHelper('hasObject', function(obj) {
+    console.log(obj);
+    return Object.keys(obj).length > 0;
+});
+
+Handlebars.registerHelper('showAuth', function(obj) {
+    var types = [];
+    for (var name in obj) {
+        var auth = obj[name];
+        types.push(auth.type);  
+    }
+    return (types.includes('http') || types.includes('apiKey')) ? '' : 'd-none';
+});
+
 Handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
 
     switch (operator) {

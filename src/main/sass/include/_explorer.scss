@@ -1,8 +1,15 @@
 #resources_container{
     .operations{
+        .content{
+            @include transition($transition-base);
+
+            code.code-signature{
+                padding: 0.5em 0.5em 0.3em;
+            }
+        }
         .divider{
             @include make-row();
-            background: lighten($hljs-bg, 5%);
+            background: rgba($hljs-bg,0.5);
             height: 1px;
         }
     }

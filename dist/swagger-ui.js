@@ -215,9 +215,9 @@ this["Handlebars"]["templates"]["main"] = Handlebars.template({"1":function(dept
   return "<small>api version:</small> "
     + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.info : depth0)) != null ? stack1.version : stack1), depth0));
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-  var stack1, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "<div id=\"swagger_sidebar\" class=\"col-lg-3 col-xl-2 sps\" data-sps-offset=\"54\">\n    <div id=\"auth_main_container\" class=\"collapse "
+  var stack1, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "<div id=\"swagger_sidebar\" class=\"col-lg-3 col-xl-2 sps\">\n    <div id=\"auth_main_container\" class=\"collapse "
     + escapeExpression(((helpers.showAuth || (depth0 && depth0.showAuth) || helperMissing).call(depth0, (depth0 != null ? depth0.securityDefinitions : depth0), {"name":"showAuth","hash":{},"data":data})))
-    + "\">\n        <div class=\"row bg-light\">\n            <div class=\"col-12\">\n                <button type=\"button\" class=\"close d-sm-block d-lg-none\" data-toggle=\"collapse\" data-target=\"#auth_main_container\">\n                  <span aria-hidden=\"true\">&times;</span>\n                </button>\n                <button data-add-scope id=\"explore\" class=\"btn btn-secondary d-none\" type=\"button\">Explore</button>\n                <div id=\"auth_options\">\n                </div>\n            </div>\n        </div>\n    </div>\n    <div id=\"sticky_nav_wrapper\" class=\"sticky-top collapse mb-3\">\n        <div id=\"sticky_nav\" class=\"pt-2 pb-2\">\n            <div class=\"row\" data-navigator>\n                <div id=\"resources_nav\" data-children=\".parent_menu\">\n                    <nav class=\"nav flex-column d-lg-none "
+    + "\">\n        <div class=\"row bg-light\">\n            <div class=\"col-12\">\n                <button type=\"button\" class=\"close d-sm-block d-lg-none\" data-toggle=\"collapse\" data-target=\"#auth_main_container\">\n                  <span aria-hidden=\"true\">&times;</span>\n                </button>\n                <div id=\"auth_options\">\n                </div>\n            </div>\n        </div>\n    </div>\n    <div id=\"sticky_nav_wrapper\" class=\"sticky-top collapse mb-3\">\n        <div id=\"sticky_nav\" class=\"pt-2 pb-2\">\n            <div class=\"row\" data-navigator>\n                <div id=\"resources_nav\" data-children=\".parent_menu\">\n                    <nav class=\"nav flex-column d-lg-none "
     + escapeExpression(((helpers.showAuth || (depth0 && depth0.showAuth) || helperMissing).call(depth0, (depth0 != null ? depth0.securityDefinitions : depth0), {"name":"showAuth","hash":{},"data":data})))
     + "\">\n                        <a href=\"#auth_main_container\" class=\"nav-link\" data-toggle=\"collapse\">Swagger Resource</a>\n                    </nav>\n                    <div class=\"col-12 d-none d-lg-block\"><label class=\"text-uppercase mt-3 mb-0\">API Reference</label></div>\n                </div>\n            </div>\n        </div>\n        <div class=\"card bg-light d-none d-lg-block\">\n";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.info : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});
@@ -20833,8 +20833,7 @@ window.SwaggerUi = Backbone.Router.extend({
 
   // Event handler for when url/key is received from user
   updateSwaggerUi: function(data){
-    this.options.url = data.url;
-    this.options.apiKey = data.apiKey;
+    this.options.url = data.url;;
     this.load();
   },
 
@@ -21180,7 +21179,6 @@ SwaggerUi.Views.ContentTypeView = Backbone.View.extend({
 SwaggerUi.Views.MainView = Backbone.View.extend({
 
   events: {
-    'click #explore' : 'showCustom',
   },
 
   apisSorter: {
@@ -21363,15 +21361,6 @@ SwaggerUi.Views.MainView = Backbone.View.extend({
 
   clear: function () {
     $(this.el).html('');
-  },
-
-  showCustom: function(e){
-    if (e) {
-      e.preventDefault();
-    }
-    this.trigger('update-swagger-ui', {
-      url: $('#input_baseUrl').val()
-    });
   }
 });
 

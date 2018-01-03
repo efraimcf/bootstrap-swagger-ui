@@ -62,6 +62,7 @@
 
     <script type="text/javascript">
         $(function () {
+            // Optional for dynamically setting URL via query param
             var url = window.location.search.match(/url=([^&]+)/);
             if (url && url.length > 1) {
                 url = decodeURIComponent(url[1]);
@@ -70,7 +71,7 @@
             }
 
             window.swaggerUi = new SwaggerUi({
-                url: url,
+                url: url, // Required
                 dom_id: "swagger-ui-container",
                 supportedSubmitMethods: ['get', 'post', 'put', 'delete', 'patch'],
                 onComplete: function (swaggerApi, swaggerUi) {
@@ -95,11 +96,15 @@
 
             window.swaggerUi.load();
 
-            $('#update-url').click(function(e){                
-                if (e) {
-                  e.preventDefault();
-                }
-                $("#explore").trigger("click");
+            ScrollPosStyler.init({
+                scrollOffsetY: 54
+            });
+
+            // Optional if including Explore form
+            $('#update-url').click(function(){
+                window.swaggerUi.updateSwaggerUi({
+                  url: $('#input_baseUrl').val()
+                });
             });
         });
     </script>

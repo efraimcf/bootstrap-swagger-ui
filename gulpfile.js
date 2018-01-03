@@ -6,12 +6,12 @@ var clean = require('gulp-clean');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
-var less = require('gulp-less');
+var sass = require('gulp-sass');
 var handlebars = require('gulp-handlebars');
 var wrap = require('gulp-wrap');
 var declare = require('gulp-declare');
 var watch = require('gulp-watch');
-var connect = require('gulp-connect');
+var browserSync = require('browser-sync').create();
 var header = require('gulp-header');
 var pkg = require('./package.json');
 var order = require('gulp-order');
@@ -70,31 +70,25 @@ gulp.task('dist', ['clean'], function() {
     .pipe(rename({extname: '.min.js'}))
     .on('error', log)
     .pipe(gulp.dest('./dist'))
-    .pipe(connect.reload());
+    .pipe(browserSync.stream());
 });
 
 /**
- * Processes less files into CSS files
+ * Processes sass files into CSS files
  */
-gulp.task('less', ['clean'], function() {
-
+gulp.task('sass', function () {
   return gulp
-    .src([
-      './src/main/less/screen.less',
-      './src/main/less/print.less',
-      './src/main/less/reset.less'
-    ])
-    .pipe(less())
-    .on('error', log)
+    .src('./src/main/sass/**.scss')
+    .pipe(sass({includePaths: ['./scss'], outputStyle: 'compressed'})
+    .on('error', sass.logError))
     .pipe(gulp.dest('./src/main/html/css/'))
-    .pipe(connect.reload());
+    .pipe(browserSync.stream());
 });
-
 
 /**
  * Copy lib and html folders
  */
-gulp.task('copy', ['less'], function() {
+gulp.task('copy', ['sass'], function() {
 
   // copy JavaScript files inside lib folder
   gulp
@@ -113,7 +107,7 @@ gulp.task('copy', ['less'], function() {
  * Watch for changes and recompile
  */
 gulp.task('watch', function() {
-  return watch(['./src/**/*.{js,less,handlebars}'], function() {
+  return watch(['./src/**/*.{js,scss,handlebars,html}'], function() {
     gulp.start('default');
   });
 });
@@ -121,11 +115,12 @@ gulp.task('watch', function() {
 /**
  * Live reload web server of `dist`
  */
-gulp.task('connect', function() {
-  connect.server({
-    root: 'dist',
-    livereload: true
-  });
+gulp.task('browser-sync', function() {
+    browserSync.init({
+        server: {
+            baseDir: "./dist"
+        }
+    });
 });
 
 function log(error) {
@@ -134,4 +129,4 @@ function log(error) {
 
 
 gulp.task('default', ['dist', 'copy']);
-gulp.task('serve', ['connect', 'watch']);
+gulp.task('serve', ['browser-sync', 'watch']);

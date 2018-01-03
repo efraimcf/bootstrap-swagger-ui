@@ -3,11 +3,8 @@
 SwaggerUi.Views.MainView = Backbone.View.extend({
 
   events: {
-    'click .mobile-nav, [data-navigator]': 'clickSidebarNav',
     'click [data-resource]': 'clickResource',
-    'click [data-tg-switch]': 'toggleToken',
-    'click [data-close]': 'closeToken',
-    'click #explore' : 'showCustom'
+    'click #explore' : 'showCustom',
   },
 
   apisSorter: {
@@ -97,28 +94,33 @@ SwaggerUi.Views.MainView = Backbone.View.extend({
   },
 
   render: function () {
+    // Render the outer container for resources
+    $(this.el).html(Handlebars.templates.main(this.model));
+
+    // Add Auth Options
+    var apiKeys = [];
     if (this.model.securityDefinitions) {
       for (var name in this.model.securityDefinitions) {
         var auth = this.model.securityDefinitions[name];
         var button;
 
-        if (auth.type === 'apiKey' && $('#apikey_button').length === 0) {
-          button = new SwaggerUi.Views.ApiKeyButton({model: auth, router: this.router}).render().el;
-          $('.auth_main_container').append(button);
+        if (auth.type === 'apiKey') {
+          apiKeys.push(auth);
         }
 
-        if (auth.type === 'basicAuth' && $('#basic_auth_button').length === 0) {
-          button = new SwaggerUi.Views.BasicAuthButton({model: auth, router: this.router}).render().el;
-          $('.auth_main_container').append(button);
+        if (auth.type === 'http') {
+          if(auth.scheme === 'basic'){
+            button = new SwaggerUi.Views.BasicAuthButton({model: auth, router: this.router}).render().el;
+          } else {
+            button = new SwaggerUi.Views.BearerButton({model: auth, router: this.router}).render().el;
+          }
+          $('#auth_options', $(this.el)).append(button);
         }
       }
     }
-
-    // Render the outer container for resources
-    $(this.el).html(Handlebars.templates.main(this.model));
+    this.addApiKeys(apiKeys);
 
     // Render each resource
-
     var resources = {};
     var counter = 0;
     for (var i = 0; i < this.model.apisArray.length; i++) {
@@ -136,19 +138,20 @@ SwaggerUi.Views.MainView = Backbone.View.extend({
       this.addSidebarHeader(resource, i);
     }
 
-    $('.propWrap').hover(function onHover() {
-      $('.optionsWrapper', $(this)).show();
-    }, function offhover() {
-      $('.optionsWrapper', $(this)).hide();
-    });
-
-    if (window.location.hash.length === 0 ) {
-      var n = $(this.el).find("#resources_nav [data-resource]").first();
-      n.trigger("click");
-      $(window).scrollTop(0)
-    }
-
     return this;
+  },
+
+  addApiKeys: function (apikeys) {
+    if(apikeys.length > 0){
+      var button;
+      if(apikeys.length == 1){
+        var auth = apikeys[0];
+        button = new SwaggerUi.Views.ApiKeyButton({model: auth, router: this.router}).render().el;
+      } else {
+        button = new SwaggerUi.Views.ApiKeys({model: apikeys, router: this.router}).render().el;
+      }
+      $('#auth_options', $(this.el)).append(button);
+    }
   },
 
   addResource: function (resource, auths) {
@@ -161,7 +164,7 @@ SwaggerUi.Views.MainView = Backbone.View.extend({
     var resourceView = new SwaggerUi.Views.ResourceView({
       model: resource,
       router: this.router,
-      tagName: 'li',
+      tagName: 'div',
       id: 'resource_' + resource.id,
       className: 'resource',
       auths: auths,
@@ -170,33 +173,12 @@ SwaggerUi.Views.MainView = Backbone.View.extend({
     $('#resources').append(resourceView.render().el);
   },
 
-  addSidebarToken: function (resource, i) {
-    resource.id = resource.id.replace(/\s/g, '_');
-    var sidebarView = new SwaggerUi.Views.SidebarHeaderView({
-      model: resource,
-      tagName: 'div',
-      className: function () {
-        return i == 0 ? 'active' : ''
-      },
-      attributes: {
-        "data-resource": 'resource_' + resource.name,
-        "label": resource.name
-      },
-      router: this.router,
-      swaggerOptions: this.options.swaggerOptions
-    });
-    $('#token-generator', $(this.el)).append(sidebarView.render().el);
-  },
-
-
   addSidebarHeader: function (resource, i) {
     resource.id = resource.id.replace(/\s/g, '_');
     var sidebarView = new SwaggerUi.Views.SidebarHeaderView({
       model: resource,
-      tagName: 'div',
-      className: function () {
-        return i == 0 ? 'active' : ''
-      },
+      tagName: 'nav',
+      className: 'nav flex-column parent_menu',
       attributes: {
         "data-resource": 'resource_' + resource.name,
         "label": resource.name
@@ -211,44 +193,13 @@ SwaggerUi.Views.MainView = Backbone.View.extend({
     $(this.el).html('');
   },
 
-  clickSidebarNav: function (e) {
-    $('.sticky-nav').toggleClass("nav-open")
-  },
-
   clickResource: function (e) {
     if (!$(e.target).is(".item")) {
       var n = $(e.target).find(".item").first();
-      $('.sticky-nav').find("[data-resource].active").removeClass("active");
+      $('#sticky-top').find("[data-resource].active").removeClass("active");
       $(e.target).find("[data-resource]").first().addClass("active");
       n.trigger("click")
     }
-  },
-
-  toggleToken: function (e) {
-    var t = $(".token-generator"),
-      tg = $("[data-tg-switch]");
-
-    t.toggleClass("hide");
-    t.hasClass("hide") ? tg.removeClass("active") : tg.addClass("active");
-    t.parents(".sticky-nav").trigger("mobile_nav:update")
-  },
-
-  closeToken: function (e) {
-    var t = $(".token-generator"),
-      tg = $("[data-tg-switch]");
-
-    t.addClass("hide");
-    tg.removeClass("active");
-    t.parents(".sticky-nav").trigger("mobile_nav:update")
-  },
-
-  openToken: function (e) {
-    var t = $(".token-generator"),
-      tg = $("[data-tg-switch]");
-
-    t.removeClass("hide");
-    tg.removeClass("active");
-    t.parents(".sticky-nav").trigger("mobile_nav:update")
   },
 
   showCustom: function(e){
@@ -256,8 +207,7 @@ SwaggerUi.Views.MainView = Backbone.View.extend({
       e.preventDefault();
     }
     this.trigger('update-swagger-ui', {
-      url: $('#input_baseUrl').val(),
-      apiKey: $('#input_apiKey').val()
+      url: $('#input_baseUrl').val()
     });
   }
 });

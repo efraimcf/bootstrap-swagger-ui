@@ -1,0 +1,9 @@
+<div id="apikeys" class="auth_container pt-3">
+    <label class="auth_label text-uppercase">API Keys:</label>
+    {{#each this}}
+        <div class="form-group">
+            <input id="input_apiKey_{{this.name}}" placeholder="{{this.name}}" data-name="{{this.name}}" data-in="{{this.in}}" class="auth_input form-control form-control-sm" name="input_{{this.name}}" type="text"/>
+        </div>
+    {{/each}}
+    <button id="apply_apikeys" class="btn btn-sm btn-secondary float-right mb-3" type="button">Apply</button>
+</div>

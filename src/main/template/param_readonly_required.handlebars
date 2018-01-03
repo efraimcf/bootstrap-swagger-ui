@@ -1,8 +1,11 @@
-<div class="param-property hide" data-label="name">{{name}}</div>
-<div class="param-property" data-label='{{name}}'>
-    <div>
+<div class="form-group row">
+    <label class="param-property text-nowrap col-lg-2 text-lg-right col-form-label">
+        {{name}}:</br>
+        <small class="text-muted"><em>({{this.in}})</em></small>
+    </label>
+    <div class="param-property col-lg-10" data-label="{{name}}">
         {{#if isBody}}
-            <textarea class='body-textarea ui-form-control' readonly='readonly' placeholder='(required)' name='{{name}}'  data-toggle="tooltip" data-placement="top" title="" data-original-title='{{name}}'>{{default}}</textarea>
+            <textarea class="body-textarea form-control" readonly placeholder="(required)" name="{{name}}"  data-toggle="tooltip" data-placement="top" title="" data-original-title="{{name}}" rows="3">{{default}}</textarea>
             <div class="parameter-content-type"/>
         {{else}}
             {{#if default}}
@@ -11,11 +14,13 @@
                 (empty)
             {{/if}}
         {{/if}}
-        <div class="small-description">
+        <div class="small-description media mt-2">
             {{#if type}}
-                <code class="code-signature">{{type}}</code>
+                <small><pre class="mb-0 mr-2"><code class="code-signature hljs rounded">{{type}}</code></pre></small>
             {{/if}}
-            <div class="markdown">{{description}}</div>
+            <div class="media-body">
+                <small class="text-muted">{{this.description}}</small>
+            </div>
         </div>
     </div>
 </div>

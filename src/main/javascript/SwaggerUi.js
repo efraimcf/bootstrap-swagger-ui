@@ -154,8 +154,6 @@ window.SwaggerUi = Backbone.Router.extend({
     this.mainView.on('update-swagger-ui', function(data) {
       return that.updateSwaggerUi(data);
     });
-
-    setTimeout(Docs.shebang.bind(this), 100);
   },
 
   buildUrl: function(base, url){

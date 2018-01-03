@@ -1,8 +1,6 @@
-var appName;
 var popupMask;
 var popupDialog;
 var clientId;
-var realm;
 var oauth2KeyName;
 var redirect_uri;
 
@@ -35,45 +33,60 @@ function handleLogin() {
     }
   }
 
-  if (window.swaggerUi.api
-    && window.swaggerUi.api.info) {
-    appName = window.swaggerUi.api.info.title;
-  }
-
   popupDialog = $(
     [
-      '<div class="modal api-popup-dialog in" id="credentials-modal" tabindex="-1" role="dialog" aria-labelledby="credentials-modal-label" aria-hidden="false" style="display: block;">',
-      '<div class="modal-dialog">',
-      '<div class="modal-content">',
-      '<div class="modal-header">',
-      '<button type="button" class="close api-popup-cancel" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>',
-      '<h3 class="modal-title" id="credentials-modal-label">Select OAuth2.0 Scopes</h3>',
+      '<div class="modal fade show api-popup-dialog" id="credentials-modal show" tabindex="-1" role="dialog" aria-labelledby="credentials-modal-label" aria-hidden="false">',
+        '<div class="modal-dialog">',
+          '<div class="modal-content">',
+            '<div class="modal-header">',
+              '<h5 class="modal-title" id="credentials-modal-label">Select OAuth2.0 Scopes</h5>',
+              '<button type="button" class="close api-popup-cancel" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>',
+            '</div>',
+            '<div class="modal-body">',
+              '<p>Scopes are used to grant an application different levels of access to data on behalf of the end user. Each API may declare one or more scopes.</p>',
+              '<div class="oauth2-details"></div>',
+              '<form>',
+                '<div class="api-popup-scopes">',
+                  '<div class="scopes">',
+                    '<strong>Scopes:</strong>',
+                  '</div>',
+                '</div>',
+              '<form>',
+              '<p class="error-msg"></p>',
+            '</div>',
+            '<div class="modal-footer">',
+              '<div class="api-popup-actions">',
+                '<button class="api-popup-cancel btn btn-sm btn-outline-secondary text-uppercase mr-2" type="button">Cancel</button>',
+                '<button class="api-popup-authbtn btn btn-sm btn-primary text-uppercase" type="button">Authorize</button>',
+              '</div>',
+            '</div>',
+          '</div>',
+        '</div>',
       '</div>',
-      '<div class="modal-body">',
-      '<p>Scopes are used to grant an application different levels of access to data on behalf of the end user. Each API may declare one or more scopes.',
-      '<a href="#">Learn how to use</a>',
-      '</p>',
-      '<p><strong>' + appName + '</strong> API requires the following scopes. Select which ones you want to grant to Swagger UI.</p>',
-      '<form>',
-      '<div class="api-popup-scopes">',
-      '<div class="scopes">',
-      '</div>',
-      '</div>',
-      '<form>',
-      '<p class="error-msg"></p>',
-      '</div>',
-      '<div class="modal-footer">',
-      '<div class="api-popup-actions"><button class="api-popup-cancel btn btn-default" type="button">Cancel</button><button class="api-popup-authbtn btn btn-primary" type="button">Authorize</button></div>',
-      '</div>',
-      '</div>',
-      '</div>',
-      '</div>'].join(''));
+      '<div class="modal-backdrop fade show"></div>'].join(''));
   $(document.body).append(popupDialog);
+
+
+  if(oauth2KeyName) {
+    details = defs[oauth2KeyName];
+    oauth_dets = popupDialog.find('.oauth2-details').empty();
+    str = [
+      '<h5>'+ oauth2KeyName +' ('+details.type+', '+details.flow+')</h5>',
+      '<pre><code class="hljs rounded">Authorization URL: '+details.authorizationUrl+'</br>',
+      'Flow: '+details.flow+'</code></pre>',
+      '<div class="form-group">',
+        '<label for="input_client_id">client_id</label>',
+        '<input class="form-control form-control-sm" type="input" id="input_client_id">',
+      '</div>',
+      '<h6>Scopes:</h6>'
+    ].join('')
+    oauth_dets.append(str);
+  }
 
   popup = popupDialog.find('.scopes').empty();
   for (i = 0; i < scopes.length; i++) {
     scope = scopes[i];
-    str = '<span data-toggle-scope="' + scope.scope + '" class="scope">' + scope.scope + '</span>';
+    str = '<button type="button" class="scope btn btn-sm btm-sm btn-outline-secondary mr-1" data-toggle-scope="' + scope.scope + '"><i class="fa fa-check mr-2 d-none"></i>' + scope.scope + '</button> ';
     popup.append(str);
   }
 
@@ -85,14 +98,20 @@ function handleLogin() {
   });
 
   popupDialog.find('[data-toggle-scope]').click(function () {
-    $(this).hasClass("active") ? $(this).removeClass('active') : $(this).addClass('active');
+    $(this).toggleClass('btn-outline-secondary btn-outline-success');
+    $(this).find('.fa-check').toggleClass('d-none d-inline');
   });
 
   popupDialog.find('button.api-popup-cancel').click(function () {
     popupMask.hide();
     popupDialog.hide();
     popupDialog.empty();
+    popupDialog.remove();
     popupDialog = [];
+  });
+
+  popupDialog.find('#input_client_id').on('change', function () {
+    clientId = this.value;
   });
 
   $('button.api-popup-authbtn').unbind();
@@ -138,7 +157,7 @@ function handleLogin() {
       }
     }
     var scopes = [];
-    var o = $('.scopes').find('.active');
+    var o = $(".scopes:last .active");
     for (k = 0; k < o.length; k++) {
       var scope = $(o[k]).attr('data-toggle-scope');
       if (scopes.indexOf(scope) === -1)
@@ -153,7 +172,6 @@ function handleLogin() {
     redirect_uri = redirectUrl;
 
     url += '&redirect_uri=' + encodeURIComponent(redirectUrl);
-    url += '&realm=' + encodeURIComponent(realm);
     url += '&client_id=' + encodeURIComponent(clientId);
     url += '&scope=' + encodeURIComponent(scopes.join(' '));
     url += '&state=' + encodeURIComponent(state);
@@ -171,7 +189,7 @@ function handleLogout() {
   }
   window.enabledScopes = null;
   var oauthBtn = $('.api-ic');
-  oauthBtn.addClass('btn-default');
+  oauthBtn.addClass('btn-outline-secondary');
   oauthBtn.removeClass('btn-success');
   oauthBtn.removeClass('btn-warning');
 
@@ -184,14 +202,11 @@ function initOAuth(opts) {
   var o = (opts || {});
   var errors = [];
 
-  appName = (o.appName || errors.push('missing appName'));
   popupMask = (o.popupMask || $('#api-common-mask'));
   popupDialog = (o.popupDialog || $('.api-popup-dialog'));
-  clientId = (o.clientId || errors.push('missing client id'));
-  realm = (o.realm || errors.push('missing realm'));
 
   if (errors.length > 0) {
-    log('auth unable initialize oauth: ' + errors);
+    console.log('auth unable initialize oauth: ' + errors);
     return;
   }
 
@@ -202,7 +217,7 @@ function initOAuth(opts) {
   var oauthBtn = $('.api-ic');
   oauthBtn.unbind();
   oauthBtn.click(function (s) {
-    if ($(s.target).hasClass('btn-default'))
+    if ($(s.target).hasClass('btn-outline-secondary'))
       handleLogin();
     else {
       handleLogout();
@@ -265,14 +280,14 @@ window.onOAuthComplete = function onOAuthComplete(token) {
               o = v.parentNode;
               // sorry, not all scopes are satisfied
               $(o).find('.api-ic').addClass('btn-warning');
-              $(o).find('.api-ic').removeClass('btn-default');
+              $(o).find('.api-ic').removeClass('btn-outline-secondary');
               $(o).find('.api-ic').removeClass('btn-success');
             }
             else {
               o = v.parentNode;
               // all scopes are satisfied
               $(o).find('.api-ic').addClass('btn-success');
-              $(o).find('.api-ic').removeClass('btn-default');
+              $(o).find('.api-ic').removeClass('btn-outline-secondary');
               $(o).find('.api-ic').removeClass('btn-warning');
             }
           }

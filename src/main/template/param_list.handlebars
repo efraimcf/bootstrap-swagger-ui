@@ -1,27 +1,32 @@
-<div class="param-property hide" data-label="name">{{name}}</div>
-<div class="param-property" data-label='{{name}}'>
-    <div>
-        <select {{#isArray this}} multiple='multiple'{{/isArray}} class='parameter ui-form-control' name='{{name}}'  data-toggle="tooltip" data-placement="right" title="" data-original-title='{{name}}'>
+<div class="form-group row">
+    <label class="param-property text-nowrap col-lg-2 text-lg-right col-form-label">
+        {{name}}:</br>
+        <small class="text-muted"><em>({{this.in}})</em></small>
+    </label>
+    <div class="param-property col-lg-10" data-label="{{name}}">
+        <select {{#isArray this}} multiple="multiple"{{/isArray}} class="parameter form-control" name="{{name}}">
             {{#if required}}
             {{else}}
                 {{#if default}}
                 {{else}}
-                        <option selected="" value=''></option>
+                    <option selected="" value="></option>
                 {{/if}}
             {{/if}}
             {{#each allowableValues.descriptiveValues}}
                 {{#if isDefault}}
-                    <option selected="" value='{{value}}'>{{value}} (default)</option>
+                    <option selected="" value="{{value}}">{{value}} (default)</option>
                 {{else}}
-                    <option value='{{value}}'>{{value}}</option>
+                    <option value="{{value}}">{{value}}</option>
                 {{/if}}
             {{/each}}
         </select>
-        <div class="small-description">
+        <div class="small-description media mt-2">
             {{#if type}}
-                <code class="code-signature">{{type}}</code>
+                <small><pre class="mb-0 mr-2"><code class="code-signature hljs rounded">{{type}}</code></pre></small>
             {{/if}}
-            <div class="markdown">{{description}}</div>
+            <div class="media-body">
+                <small class="text-muted">{{this.description}}</small>
+            </div>
         </div>
     </div>
 </div>

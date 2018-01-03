@@ -1,0 +1,43 @@
+@include media-breakpoint-up(lg) {
+  html {
+    height: 100%;
+    body{
+      height: 100%;
+
+      #main-nav{
+        z-index: $zindex-fixed;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+      }
+
+      main{
+        height: 100%;
+        padding-top: 54px;
+
+        #swagger-ui-container{
+          height: 100%;
+
+          #swagger_sidebar{
+            height: 100%;
+            position: fixed;
+            left: 0;
+            top: 0;
+            padding-top: 54px;
+            overflow-y: scroll;
+          }
+
+          #resources_container{
+
+            .operation,
+            .samples{
+              padding-top: 54px;
+              margin-top: -54px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

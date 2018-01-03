@@ -1,11 +1,11 @@
-<div class='auth_button' id='basic_auth_button'><img class='auth_icon' src='images/password.jpeg'></div>
-<div class='auth_container' id='basic_auth_container'>
-  <div class='key_input_container'>
-    <div class="auth_label">Username</div>
-    <input placeholder="username" class="auth_input" id="input_username" name="username" type="text"/>
-    <div class="auth_label">Password</div>
-    <input placeholder="password" class="auth_input" id="input_password" name="password" type="password"/>
-    <div class='auth_submit'><a class='auth_submit_button' id="apply_basic_auth" href="#">apply</a></div>
+<div id="basic_auth_container" class="auth_container pt-3">
+    <label class="auth_label text-uppercase">Basic Auth:</label>
+    <div class="form-group">
+        <input placeholder="username" class="auth_input form-control form-control-sm" id="input_username" name="username" type="text"/>
+    </div>
+    <div class="form-group">
+        <input placeholder="password" class="auth_input form-control form-control-sm" id="input_password" name="password" type="password"/>
+    </div>
+    <button id="apply_basic_auth" class="btn btn-sm btn-secondary float-right mb-3" type="button">Apply</button>
   </div>
 </div>
-

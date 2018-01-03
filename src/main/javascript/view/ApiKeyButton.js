@@ -3,7 +3,7 @@
 SwaggerUi.Views.ApiKeyButton = Backbone.View.extend({ // TODO: append this to global SwaggerUi
 
   events:{
-    'click #apikey_button' : 'toggleApiKeyContainer',
+    // 'click #apikey_button' : 'toggleApiKeyContainer',
     'click #apply_api_key' : 'applyApiKey'
   },
 
@@ -19,31 +19,12 @@ SwaggerUi.Views.ApiKeyButton = Backbone.View.extend({ // TODO: append this to gl
     return this;
   },
 
-
   applyApiKey: function(){
-    var keyAuth = new SwaggerClient.ApiKeyAuthorization(
-      this.model.name,
-      $('#input_apiKey_entry').val(),
-      this.model.in
-    );
-    this.router.api.clientAuthorizations.add(this.model.name, keyAuth);
-    this.router.load();
-    $('#apikey_container').show();
-  },
-
-  toggleApiKeyContainer: function(){
-    if ($('#apikey_container').length) {
-
-      var elem = $('#apikey_container').first();
-
-      if (elem.is(':visible')){
-        elem.hide();
-      } else {
-
-        // hide others
-        $('.auth_container').hide();
-        elem.show();
-      }
+    var key = encodeURIComponent($('#input_apiKey_'+this.model.name)[0].value);
+    if (key && key.trim() != "") {
+        var apiKeyAuth = new SwaggerClient.ApiKeyAuthorization(this.model.name, key, this.model.in);
+        window.swaggerUi.api.clientAuthorizations.add(this.model.name, apiKeyAuth);
+        log("added " + this.model.name + ":" + key);
     }
   },
 

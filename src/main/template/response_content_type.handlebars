@@ -1,17 +1,14 @@
-<div class="parameter-item">
-    <div class="param-property hide" data-label="name">Response Type</div>
-    <div class="param-property" data-label="Response Type">
-        <div>
-            <select class="parameter ui-form-control" name="responseContentType">
-                {{#if produces}}
-                    {{#each produces}}
-                        <option value="{{{this}}}">{{{this}}}</option>
-                    {{/each}}
-                {{else}}
-                    <option value="application/json">application/json</option>
-                {{/if}}
-            </select>
-        </div>
+<div class="media">
+    <label class="align-self-center mb-0 mr-3" for="responseContentType">Response Type:</label>
+    <div class="media-body">
+        <select class="parameter form-control form-control-sm" name="responseContentType">
+            {{#if produces}}
+                {{#each produces}}
+                    <option value="{{{this}}}">{{{this}}}</option>
+                {{/each}}
+            {{else}}
+                <option value="application/json">application/json</option>
+            {{/if}}
+        </select>
     </div>
 </div>
-

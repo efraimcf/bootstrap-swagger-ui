@@ -78,7 +78,7 @@ gulp.task('dist', ['clean'], function() {
  */
 gulp.task('sass', function () {
   return gulp
-    .src('./src/main/sass/**.scss')
+    .src('./src/main/scss/**.scss')
     .pipe(sass({includePaths: ['./scss'], outputStyle: 'compressed'})
     .on('error', sass.logError))
     .pipe(gulp.dest('./src/main/html/css/'))

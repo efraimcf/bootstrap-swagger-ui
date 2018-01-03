@@ -13,7 +13,10 @@
                                 <span class="path text-muted">{{path}}</span>
                             </h5>
                         </div>
-                        <a href="javascript:;" class="toggle-samples text-nowrap text-muted">
+                        <a href="javascript:;" class="toggle-samples text-nowrap text-muted d-none d-lg-block">
+                            <small class="text">Show Samples</small> <i class="fa fa-code"></i>
+                        </a>
+                        <a href="#samples-{{parentId}}_{{nickname}}" class="text-nowrap text-muted d-lg-none">
                             <small class="text">Show Samples</small> <i class="fa fa-code"></i>
                         </a>
                     </div>                    
@@ -64,8 +67,8 @@
                     {{/if}}
                 </form>
             </div>
-            <div class="samples col-lg-4 col-xl-5">
-                <span class="model-signature d-none"></span>
+            <div class="samples col-lg-4 col-xl-5" id="samples-{{parentId}}_{{nickname}}">
+                <span class="model-signature d-lg-none"></span>
             </div>
         </div>
 
@@ -99,6 +102,5 @@
                 </div>
             </div>
         </div>
-    </div> 
-    <div class="divider"></div>
+    </div>
 </div>

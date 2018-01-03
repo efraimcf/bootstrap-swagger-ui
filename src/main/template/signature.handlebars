@@ -1,7 +1,7 @@
 <div id="accordion-{{id}}" role="tablist" data-children=".sample-item">
     <div class="sample-item">
-        <a class="accordion-link" href="#sample-{{id}}" data-control data-toggle="collapse" data-parent="#accordion-{{id}}">
-            <h6 class="sample-title text-uppercase mt-3 mb-3">
+        <a class="accordion-link row" href="#sample-{{id}}" data-control data-toggle="collapse" data-parent="#accordion-{{id}}">
+            <h6 class="sample-title text-uppercase col-12 mt-3 mb-3">
                 {{type}} Sample
             </h6>
         </a>
@@ -14,8 +14,8 @@
 
     {{#if signature}}
         <div class="sample-item">
-            <a class="accordion-link" href="#schema-{{id}}" data-control data-toggle="collapse" data-parent="#accordion-{{id}}">
-                <h6 class="schema-title text-uppercase collapsed mt-3 mb-3">
+            <a class="accordion-link row" href="#schema-{{id}}" data-control data-toggle="collapse" data-parent="#accordion-{{id}}">
+                <h6 class="schema-title text-uppercase collapsed col-12 mt-3 mb-3">
                     {{type}} Schema
                 </h6>
             </a>

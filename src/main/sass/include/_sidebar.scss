@@ -1,8 +1,5 @@
 #swagger_sidebar{
     background: lighten(theme-color("light"), 1.25%);
-    @include media-breakpoint-up(lg) {
-        display: block !important;
-    }
 
     #auth_main_container{
         @include media-breakpoint-up(lg) {
@@ -11,6 +8,12 @@
 
         > .row {
             border-bottom: 1px solid $card-border-color;
+        }
+    }
+
+    #sticky_nav_wrapper{
+        @include media-breakpoint-up(lg) {
+            display: block !important;
         }
     }
 

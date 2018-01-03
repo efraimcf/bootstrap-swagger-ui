@@ -2,13 +2,13 @@
 
 Based off of [Swagger UI responsive theme](https://github.com/jensoleg/swagger-ui) modified to use bootstrap v4.0.0-beta.3 and refactored a bit for added flexibility.
 
-[![Swagger Theme example](dist/images/Swagger_explorer.png)](http://andresthegiant.com/boostrap-swagger-ui/?url=http://petstore.swagger.io/v2/swagger.json)
+[![Swagger Theme example](dist/images/Swagger_explorer.png)](http://swagger-ui.andresthegiant.com/?url=http://petstore.swagger.io/v2/swagger.json)
 
 The theme will adapt to screen size and works on tablets and mobile phones.
 
-[![Swagger Theme example](dist/images/Swagger_explorer_min.png)](http://andresthegiant.com/boostrap-swagger-ui/?url=http://petstore.swagger.io/v2/swagger.json)
+[![Swagger Theme example](dist/images/Swagger_explorer_min.png)](http://swagger-ui.andresthegiant.com/?url=http://petstore.swagger.io/v2/swagger.json)
 
-Give it a [try](http://andresthegiant.com/boostrap-swagger-ui/?url=http://petstore.swagger.io/v2/swagger.json) and enter your own swagger definition.
+Give it a [try](http://swagger-ui.andresthegiant.com/?url=http://petstore.swagger.io/v2/swagger.json) and enter your own swagger definition.
 
 ## Customizing The Theme
 

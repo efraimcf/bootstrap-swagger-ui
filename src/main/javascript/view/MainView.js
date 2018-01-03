@@ -3,7 +3,6 @@
 SwaggerUi.Views.MainView = Backbone.View.extend({
 
   events: {
-    'click #explore' : 'showCustom',
   },
 
   apisSorter: {
@@ -186,14 +185,5 @@ SwaggerUi.Views.MainView = Backbone.View.extend({
 
   clear: function () {
     $(this.el).html('');
-  },
-
-  showCustom: function(e){
-    if (e) {
-      e.preventDefault();
-    }
-    this.trigger('update-swagger-ui', {
-      url: $('#input_baseUrl').val()
-    });
   }
 });

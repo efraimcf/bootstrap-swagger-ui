@@ -697,7 +697,7 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
     r.find(".content").toggleClass("col-xl-7 col-xl-6");
     r.find(".samples").toggleClass("col-lg-4 col-lg-6");
     r.find(".samples").toggleClass("col-xl-5 col-xl-6");
-    r.find(".samples .model-signature").toggleClass("d-none")
+    r.find(".samples .model-signature").toggleClass("d-lg-none")
 
     r.toggleClass("samples-collapsed");
     n.find('.text').text("Hide Samples");

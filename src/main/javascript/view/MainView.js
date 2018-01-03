@@ -3,7 +3,6 @@
 SwaggerUi.Views.MainView = Backbone.View.extend({
 
   events: {
-    'click [data-resource]': 'clickResource',
     'click #explore' : 'showCustom',
   },
 
@@ -157,9 +156,6 @@ SwaggerUi.Views.MainView = Backbone.View.extend({
   addResource: function (resource, auths) {
     // Render a resource and add it to resources li
     resource.id = resource.id.replace(/\s/g, '_');
-
-    // Make all definitions available at the root of the resource so that they can
-    // be loaded by the JSonEditor
     resource.definitions = this.model.definitions;
     var resourceView = new SwaggerUi.Views.ResourceView({
       model: resource,
@@ -180,7 +176,6 @@ SwaggerUi.Views.MainView = Backbone.View.extend({
       tagName: 'nav',
       className: 'nav flex-column parent_menu',
       attributes: {
-        "data-resource": 'resource_' + resource.name,
         "label": resource.name
       },
       router: this.router,
@@ -191,15 +186,6 @@ SwaggerUi.Views.MainView = Backbone.View.extend({
 
   clear: function () {
     $(this.el).html('');
-  },
-
-  clickResource: function (e) {
-    if (!$(e.target).is(".item")) {
-      var n = $(e.target).find(".item").first();
-      $('#sticky-top').find("[data-resource].active").removeClass("active");
-      $(e.target).find("[data-resource]").first().addClass("active");
-      n.trigger("click")
-    }
   },
 
   showCustom: function(e){

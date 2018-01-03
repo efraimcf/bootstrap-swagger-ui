@@ -3,12 +3,10 @@
     @include transition($transition-base);
 
     .sample-item{
-        h6{
-            a{
-                color: #fff;
-                font-size: $font-size-sm;
-                text-decoration: none;
-            }
+        a.accordion-link{
+            color: #fff;
+            font-size: $font-size-sm;
+            text-decoration: none;
         }
     }
 }

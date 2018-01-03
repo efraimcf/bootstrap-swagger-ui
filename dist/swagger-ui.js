@@ -136,11 +136,6 @@ Handlebars.registerHelper('methodBadgeClass', function(method) {
     }
 });
 
-Handlebars.registerHelper('hasObject', function(obj) {
-    console.log(obj);
-    return Object.keys(obj).length > 0;
-});
-
 Handlebars.registerHelper('showAuth', function(obj) {
     var types = [];
     for (var name in obj) {
@@ -222,12 +217,12 @@ this["Handlebars"]["templates"]["main"] = Handlebars.template({"1":function(dept
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   var stack1, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "<div id=\"swagger_sidebar\" class=\"collapse col-lg-3 col-xl-2\">\n    <div id=\"auth_main_container\" class=\"collapse "
     + escapeExpression(((helpers.showAuth || (depth0 && depth0.showAuth) || helperMissing).call(depth0, (depth0 != null ? depth0.securityDefinitions : depth0), {"name":"showAuth","hash":{},"data":data})))
-    + "\">\n        <div class=\"row bg-light\">\n            <div class=\"col-12\">\n                <button type=\"button\" class=\"close d-sm-block d-lg-none\" data-toggle=\"collapse\" data-target=\"#auth_main_container\">\n                  <span aria-hidden=\"true\">&times;</span>\n                </button>\n                <button data-add-scope id=\"explore\" class=\"btn btn-secondary d-none\" type=\"button\">Explore</button>\n                <div id=\"auth_options\">\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"mb-3\">\n        <div id=\"sticky_nav\" class=\"pt-2 pb-2\">\n            <div class=\"row\" data-navigator>\n                <div id=\"resources_nav\" data-children=\".parent_menu\">\n                    <nav class=\"nav flex-column d-lg-none "
+    + "\">\n        <div class=\"row bg-light\">\n            <div class=\"col-12\">\n                <button type=\"button\" class=\"close d-sm-block d-lg-none\" data-toggle=\"collapse\" data-target=\"#auth_main_container\">\n                  <span aria-hidden=\"true\">&times;</span>\n                </button>\n                <button data-add-scope id=\"explore\" class=\"btn btn-secondary d-none\" type=\"button\">Explore</button>\n                <div id=\"auth_options\">\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"sticky-top mb-3\">\n        <div id=\"sticky_nav\" class=\"pt-2 pb-2\">\n            <div class=\"row\" data-navigator>\n                <div id=\"resources_nav\" data-children=\".parent_menu\">\n                    <nav class=\"nav flex-column d-lg-none "
     + escapeExpression(((helpers.showAuth || (depth0 && depth0.showAuth) || helperMissing).call(depth0, (depth0 != null ? depth0.securityDefinitions : depth0), {"name":"showAuth","hash":{},"data":data})))
-    + "\">\n                        <a href=\"#auth_main_container\" class=\"nav-link\" data-toggle=\"collapse\">Swagger Resource</a>\n                    </nav>\n                    <div class=\"col-12 d-none d-lg-block\"><label class=\"text-uppercase mt-3 mb-0\">API Reference</label></div>\n                </div>                    \n            </div>\n        </div>\n        <div class=\"card bg-light d-none d-lg-block\">\n";
+    + "\">\n                        <a href=\"#auth_main_container\" class=\"nav-link\" data-toggle=\"collapse\">Swagger Resource</a>\n                    </nav>\n                    <div class=\"col-12 d-none d-lg-block\"><label class=\"text-uppercase mt-3 mb-0\">API Reference</label></div>\n                </div>\n            </div>\n        </div>\n        <div class=\"card bg-light d-none d-lg-block\">\n";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.info : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
-  return buffer + "        </div>\n    </div>\n</div>\n\n<div id=\"resources_container\" class=\"col-lg-9 offset-lg-3 col-xl-10 offset-xl-2\">\n    <div id=\"resources\" class=\"samples-collapsed\"></div>\n</div>\n";
+  return buffer + "        </div>\n    </div>\n</div>\n\n<div id=\"resources_container\" class=\"col-lg-9 col-xl-10\">\n    <div id=\"resources\" class=\"samples-collapsed\"></div>\n</div>\n";
 },"useData":true});
 this["Handlebars"]["templates"]["operation"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
   return "badge-secondary";
@@ -266,9 +261,9 @@ this["Handlebars"]["templates"]["operation"] = Handlebars.template({"1":function
     + escapeExpression(((helper = (helper = helpers.parentId || (depth0 != null ? depth0.parentId : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"parentId","hash":{},"data":data}) : helper)))
     + "_"
     + escapeExpression(((helper = (helper = helpers.nickname || (depth0 != null ? depth0.nickname : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"nickname","hash":{},"data":data}) : helper)))
-    + "\">\n        <div class=\"row\">\n            <div class=\"content col-lg-8 col-xl-7 pt-3 pb-3\">\n                <div class=\"heading mb-3\">                    \n                    <h3 class=\"operation-title\">\n                        <a class=\"opperation_link\" href=\"#!/"
-    + escapeExpression(((helper = (helper = helpers.encodedParentId || (depth0 != null ? depth0.encodedParentId : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"encodedParentId","hash":{},"data":data}) : helper)))
-    + "/"
+    + "\">\n        <div class=\"row\">\n            <div class=\"content col-lg-8 col-xl-7 pt-3 pb-3\">\n                <div class=\"heading mb-3\">                    \n                    <h3 class=\"operation-title\">\n                        <a class=\"opperation_link\" href=\"#"
+    + escapeExpression(((helper = (helper = helpers.parentId || (depth0 != null ? depth0.parentId : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"parentId","hash":{},"data":data}) : helper)))
+    + "_"
     + escapeExpression(((helper = (helper = helpers.nickname || (depth0 != null ? depth0.nickname : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"nickname","hash":{},"data":data}) : helper)))
     + "\">"
     + escapeExpression(((helper = (helper = helpers.summary || (depth0 != null ? depth0.summary : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"summary","hash":{},"data":data}) : helper)))
@@ -675,24 +670,15 @@ this["Handlebars"]["templates"]["response_content_type"] = Handlebars.template({
   if (stack1 != null) { buffer += stack1; }
   return buffer + "        </select>\n    </div>\n</div>";
 },"useData":true});
-this["Handlebars"]["templates"]["sidebar_header"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
-  return "active";
-  },"3":function(depth0,helpers,partials,data) {
-  return "show";
-  },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-  var stack1, helperMissing=helpers.helperMissing, lambda=this.lambda, escapeExpression=this.escapeExpression, buffer = "<a class=\"nav-link ";
-  stack1 = ((helpers.ifCond || (depth0 && depth0.ifCond) || helperMissing).call(depth0, (depth0 != null ? depth0.nmbr : depth0), "==", 0, {"name":"ifCond","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data}));
-  if (stack1 != null) { buffer += stack1; }
-  buffer += " collapsed text-capitalize\" href=\"#collapse_"
+this["Handlebars"]["templates"]["sidebar_header"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+  var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, lambda=this.lambda;
+  return "<a class=\"nav-link text-capitalize\" href=\"#"
+    + escapeExpression(((helper = (helper = helpers.parentId || (depth0 != null ? depth0.parentId : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"parentId","hash":{},"data":data}) : helper)))
+    + "_"
+    + escapeExpression(((helper = (helper = helpers.nickname || (depth0 != null ? depth0.nickname : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"nickname","hash":{},"data":data}) : helper)))
+    + "\">"
     + escapeExpression(lambda((depth0 != null ? depth0.name : depth0), depth0))
-    + "\" data-toggle=\"collapse\" data-parent=\"#resources_nav\">"
-    + escapeExpression(lambda((depth0 != null ? depth0.name : depth0), depth0))
-    + "</a>\n<div class=\"collapse ";
-  stack1 = ((helpers.ifCond || (depth0 && depth0.ifCond) || helperMissing).call(depth0, (depth0 != null ? depth0.nmbr : depth0), "==", 0, {"name":"ifCond","hash":{},"fn":this.program(3, data),"inverse":this.noop,"data":data}));
-  if (stack1 != null) { buffer += stack1; }
-  return buffer + "\" id=\"collapse_"
-    + escapeExpression(lambda((depth0 != null ? depth0.name : depth0), depth0))
-    + "\" role=\"tabpanel\">\n    <nav class=\"nav flex-column sub_menu\"></nav>\n</div>";
+    + "</a>\n<nav class=\"nav flex-column sub_menu\"></nav>";
 },"useData":true});
 this["Handlebars"]["templates"]["sidebar_item"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
@@ -700,13 +686,13 @@ this["Handlebars"]["templates"]["sidebar_item"] = Handlebars.template({"compiler
     + "\n";
 },"useData":true});
 this["Handlebars"]["templates"]["signature"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
-  var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "        <div class=\"sample-item\">\n            <h6 class=\"schema-title text-white text-uppercase collapsed mt-3 mb-3\">\n                <a href=\"#schema-"
+  var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "        <div class=\"sample-item\">\n            <a class=\"accordion-link\" href=\"#schema-"
     + escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"id","hash":{},"data":data}) : helper)))
     + "\" data-control data-toggle=\"collapse\" data-parent=\"#accordion-"
     + escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"id","hash":{},"data":data}) : helper)))
-    + "\">"
+    + "\">\n                <h6 class=\"schema-title text-uppercase collapsed mt-3 mb-3\">\n                    "
     + escapeExpression(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"type","hash":{},"data":data}) : helper)))
-    + " Schema</a>\n            </h6>\n            <div data-content class=\"collapse row\" id=\"schema-"
+    + " Schema\n                </h6>\n            </a>\n            <div data-content class=\"collapse row\" id=\"schema-"
     + escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"id","hash":{},"data":data}) : helper)))
     + "\">\n                <div class=\"schema-description col-12\">\n                    ";
   stack1 = ((helper = (helper = helpers.signature || (depth0 != null ? depth0.signature : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"signature","hash":{},"data":data}) : helper));
@@ -715,13 +701,13 @@ this["Handlebars"]["templates"]["signature"] = Handlebars.template({"1":function
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "<div id=\"accordion-"
     + escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"id","hash":{},"data":data}) : helper)))
-    + "\" role=\"tablist\" data-children=\".sample-item\">\n    <div class=\"sample-item\">\n        <h6 class=\"sample-title text-white text-uppercase mt-3 mb-3\">\n            <a href=\"#sample-"
+    + "\" role=\"tablist\" data-children=\".sample-item\">\n    <div class=\"sample-item\">\n        <a class=\"accordion-link\" href=\"#sample-"
     + escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"id","hash":{},"data":data}) : helper)))
     + "\" data-control data-toggle=\"collapse\" data-parent=\"#accordion-"
     + escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"id","hash":{},"data":data}) : helper)))
-    + "\">"
+    + "\">\n            <h6 class=\"sample-title text-uppercase mt-3 mb-3\">\n                "
     + escapeExpression(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"type","hash":{},"data":data}) : helper)))
-    + " Sample</a>\n        </h6>\n        <div data-content class=\"collapse show row\" id=\"sample-"
+    + " Sample\n            </h6>\n        </a>\n        <div data-content class=\"collapse show row\" id=\"sample-"
     + escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"id","hash":{},"data":data}) : helper)))
     + "\">\n            <div class=\"sample-snippet col-12\">\n                <pre><code>"
     + escapeExpression(((helper = (helper = helpers.sampleJSON || (depth0 != null ? depth0.sampleJSON : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"sampleJSON","hash":{},"data":data}) : helper)))
@@ -20833,24 +20819,6 @@ window.SwaggerUi = Backbone.Router.extend({
     this.options.success = function() { return that.render(); };
     this.options.progress = function(d) { return that.showMessage(d); };
     this.options.failure = function(d) { return that.onLoadFailure(d); };
-
-    // Create view to handle the header inputs
-    //this.headerView = new SwaggerUi.Views.HeaderView({el: $('#header')});
-
-    // Event handler for when the baseUrl/apiKey is entered by user
-    /*
-    this.headerView.on('update-swagger-ui', function(data) {
-      return that.updateSwaggerUi(data);
-    });
-    */
-    //JSon Editor custom theming
-    JSONEditor.defaults.iconlibs.swagger = JSONEditor.AbstractIconLib.extend({
-      mapping: {
-        collapse: 'collapse',
-        expand: 'expand'
-      },
-      icon_prefix: 'swagger-'
-    });
   },
 
   // Set an option after initializing
@@ -21212,7 +21180,6 @@ SwaggerUi.Views.ContentTypeView = Backbone.View.extend({
 SwaggerUi.Views.MainView = Backbone.View.extend({
 
   events: {
-    'click [data-resource]': 'clickResource',
     'click #explore' : 'showCustom',
   },
 
@@ -21366,9 +21333,6 @@ SwaggerUi.Views.MainView = Backbone.View.extend({
   addResource: function (resource, auths) {
     // Render a resource and add it to resources li
     resource.id = resource.id.replace(/\s/g, '_');
-
-    // Make all definitions available at the root of the resource so that they can
-    // be loaded by the JSonEditor
     resource.definitions = this.model.definitions;
     var resourceView = new SwaggerUi.Views.ResourceView({
       model: resource,
@@ -21389,7 +21353,6 @@ SwaggerUi.Views.MainView = Backbone.View.extend({
       tagName: 'nav',
       className: 'nav flex-column parent_menu',
       attributes: {
-        "data-resource": 'resource_' + resource.name,
         "label": resource.name
       },
       router: this.router,
@@ -21400,15 +21363,6 @@ SwaggerUi.Views.MainView = Backbone.View.extend({
 
   clear: function () {
     $(this.el).html('');
-  },
-
-  clickResource: function (e) {
-    if (!$(e.target).is(".item")) {
-      var n = $(e.target).find(".item").first();
-      $('#sticky-top').find("[data-resource].active").removeClass("active");
-      $(e.target).find("[data-resource]").first().addClass("active");
-      n.trigger("click")
-    }
   },
 
   showCustom: function(e){
@@ -21430,7 +21384,6 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
     'submit .sandbox': 'submitOperation',
     'click .submit': 'submitOperation',
     'click .toggle-samples': 'toggleSamples',
-    'click .opperation_link': 'scrollLink'
   },
 
   initialize: function (opts) {
@@ -21745,10 +21698,6 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
       var pi;
       for(pi = 0; pi < this.model.parameters.length; pi++){
         var p = this.model.parameters[pi];
-        if( p.jsonEditor && p.jsonEditor.isEnabled()){
-          var json = p.jsonEditor.getValue();
-          map[p.name] = JSON.stringify(json);
-        }
       }
       opts.responseContentType = $('div select[name=responseContentType]', $(this.el)).val();
       opts.requestContentType = $('div select[name=parameterContentType]', $(this.el)).val();
@@ -22092,9 +22041,6 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
     $('.request_url pre code', $(this.el)).text(url);
     $('.response_code', $(this.el)).html('<pre><code class="hljs rounded">' + response.status + '</code></pre>');
     $('.response_body', $(this.el)).html(response_body);
-    // $('.response_headers', $(this.el)).html('<pre><code class="rounded">' + _.escape(JSON.stringify(response.headers, null, '  ')).replace(/\n/g, '<br>') + '</code></pre>');
-    $('.response_headers', $(this.el)).html('<pre><code class="rounded json">' + JSON.stringify(response.headers, null, '  ') + '</code></pre>');
-    $('.response', $(this.el)).slideDown();
     $('.response_throbber', $(this.el)).hide();
     var response_body_el = $('.response_body pre code', $(this.el))[0],
         response_headers_el = $('.response_headers pre code', $(this.el))[0];
@@ -22110,21 +22056,6 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
       hljs.highlightBlock(response_headers_el);
       return
     }
-  },
-
-  scrollLink: function (e) {
-    function o(e) {
-      if ("self" === e) {
-        var n = $(window).scrollTop();
-        return $(window).scrollTop(n)
-      }
-
-      return $(window).scrollTop(e)
-    }
-
-    var n = $(e.currentTarget),
-        t = n.parents(".endpoint").first().offset().top;
-    o(t);
   },
 
   toggleSamples: function (e) {
@@ -22250,39 +22181,6 @@ SwaggerUi.Views.ParameterView = Backbone.View.extend({
     };
 
     var isParam = false;
-
-    if( this.options.swaggerOptions.jsonEditor && this.model.isBody && this.model.schema){
-      var jsonEditorOptions = this.options.swaggerOptions.jsonEditorOptions;
-      var $self = $(this.el);
-      if (jsonEditorOptions && jsonEditorOptions.noDefaultProperties) setDefaultProperties(this.model.schema);
-      this.model.jsonEditor =
-        /* global JSONEditor */
-          new JSONEditor($('.editor_holder', $self)[0],
-              {schema: this.model.schema, startval : this.model.default,
-                ajax:true,
-                disable_properties:jsonEditorOptions && jsonEditorOptions.disableProperties,
-                disable_edit_json:jsonEditorOptions && jsonEditorOptions.disableEditJson,
-                remove_empty_properties:jsonEditorOptions && jsonEditorOptions.removeEmptyProperties,
-                iconlib: 'swagger' });
-      // This is so that the signature can send back the sample to the json editor
-      // TODO: SignatureView should expose an event "onSampleClicked" instead
-      signatureModel.jsonEditor = this.model.jsonEditor;
-      $('.body-textarea', $self).hide();
-      $('.editor_holder', $self).show();
-      $('.parameter-content-type', $self)
-        .change(function(e){
-          if(e.target.value === 'application/xml'){
-            $('.body-textarea', $self).show();
-            $('.editor_holder', $self).hide();
-            this.model.jsonEditor.disable();
-          }
-          else {
-            $('.body-textarea', $self).hide();
-            $('.editor_holder', $self).show();
-            this.model.jsonEditor.enable();
-          }
-        });
-    }
 
     if (this.model.isBody) {
       isParam = true;
@@ -22421,10 +22319,13 @@ SwaggerUi.Views.SidebarHeaderView = Backbone.View.extend({
   },
 
   events: {
-    'click [data-endpoint]': 'clickSidebarItem'
   },
 
   render: function () {
+
+    this.model.nickname = this.model.operationsArray[0].nickname;
+    this.model.parentId = this.model.operation.parentId;
+
     $(this.el).html(Handlebars.templates.sidebar_header(this.model));
 
     for (var i = 0; i < this.model.operationsArray.length; i++) {
@@ -22443,60 +22344,13 @@ SwaggerUi.Views.SidebarHeaderView = Backbone.View.extend({
       tagName: 'a',
       className : 'nav-link item',
       attributes: {
-          "href": '#!/'+item.parentId+'/'+item.nickname,
-          "onClick": 'return false',
-          "data-endpoint": item.parentId + '_' + item.nickname
+          "href": '#'+item.parentId + '_' + item.nickname
       },
       router: this.router,
       swaggerOptions: this.options.swaggerOptions
     });
     $('.sub_menu', $(this.el)).append(sidebarItemView.render().el);
-  },
-
-  clickSidebarItem: function (e) {
-    var elem = $(e.target);
-    var eln = $("#" + elem.attr("data-endpoint"));
-
-    if (elem.is(".item")) {
-      scroll(elem.attr("data-endpoint"));
-      setSelected(elem);
-      updateUrl(elem.attr("href"))
-    }
-
-    /* scroll */
-    function scroll(elem) {
-      r = $("#" + elem).offset().top;
-      scrollT(r)
-    }
-
-    /* set selected value and select operation (class) */
-    function setSelected(element) {
-      {
-        var nav = $("#sticky_nav [data-navigator]");
-        $("#" + element.attr("data-endpoint"))
-      }
-      nav.find("[data-selected]").removeClass("active");
-      nav.find("[data-selected]").removeAttr("data-selected");
-      element.addClass("active");
-      element.attr("data-selected", "");
-      $("#sticky_nav").find("[data-selected-value]").html(element.text())
-    }
-
-    /* update navigation */
-    function updateUrl(element) {
-      history.pushState && history.pushState(null, null, element)
-    }
-
-    function scrollT(e) {
-      if ("self" === e) {
-        var n = $(window).scrollTop();
-        return $(window).scrollTop(n)
-      }
-
-      return $(window).scrollTop(e)
-    }
   }
-
 });
 'use strict';
 
@@ -22539,10 +22393,6 @@ SwaggerUi.Views.SignatureView = Backbone.View.extend({
       var textArea = $('textarea', $(this.el.parentNode.parentNode.parentNode));
       if ($.trim(textArea.val()) === '') {
         textArea.val(this.model.sampleJSON);
-         // TODO move this code outside of the view and expose an event instead
-         if( this.model.jsonEditor && this.model.jsonEditor.isEnabled()){
-            this.model.jsonEditor.setValue(JSON.parse(this.model.sampleJSON));
-         }
       }
     }
   }

@@ -7,7 +7,6 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
     'submit .sandbox': 'submitOperation',
     'click .submit': 'submitOperation',
     'click .toggle-samples': 'toggleSamples',
-    'click .opperation_link': 'scrollLink'
   },
 
   initialize: function (opts) {
@@ -322,10 +321,6 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
       var pi;
       for(pi = 0; pi < this.model.parameters.length; pi++){
         var p = this.model.parameters[pi];
-        if( p.jsonEditor && p.jsonEditor.isEnabled()){
-          var json = p.jsonEditor.getValue();
-          map[p.name] = JSON.stringify(json);
-        }
       }
       opts.responseContentType = $('div select[name=responseContentType]', $(this.el)).val();
       opts.requestContentType = $('div select[name=parameterContentType]', $(this.el)).val();
@@ -669,9 +664,6 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
     $('.request_url pre code', $(this.el)).text(url);
     $('.response_code', $(this.el)).html('<pre><code class="hljs rounded">' + response.status + '</code></pre>');
     $('.response_body', $(this.el)).html(response_body);
-    // $('.response_headers', $(this.el)).html('<pre><code class="rounded">' + _.escape(JSON.stringify(response.headers, null, '  ')).replace(/\n/g, '<br>') + '</code></pre>');
-    $('.response_headers', $(this.el)).html('<pre><code class="rounded json">' + JSON.stringify(response.headers, null, '  ') + '</code></pre>');
-    $('.response', $(this.el)).slideDown();
     $('.response_throbber', $(this.el)).hide();
     var response_body_el = $('.response_body pre code', $(this.el))[0],
         response_headers_el = $('.response_headers pre code', $(this.el))[0];
@@ -687,21 +679,6 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
       hljs.highlightBlock(response_headers_el);
       return
     }
-  },
-
-  scrollLink: function (e) {
-    function o(e) {
-      if ("self" === e) {
-        var n = $(window).scrollTop();
-        return $(window).scrollTop(n)
-      }
-
-      return $(window).scrollTop(e)
-    }
-
-    var n = $(e.currentTarget),
-        t = n.parents(".endpoint").first().offset().top;
-    o(t);
   },
 
   toggleSamples: function (e) {

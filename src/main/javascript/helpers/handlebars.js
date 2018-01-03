@@ -20,11 +20,6 @@ Handlebars.registerHelper('methodBadgeClass', function(method) {
     }
 });
 
-Handlebars.registerHelper('hasObject', function(obj) {
-    console.log(obj);
-    return Object.keys(obj).length > 0;
-});
-
 Handlebars.registerHelper('showAuth', function(obj) {
     var types = [];
     for (var name in obj) {

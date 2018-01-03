@@ -1,33 +1,25 @@
-# Swagger UI responsive theme
+# Bootsrap Swagger UI Theme
 
-With inspiration from the [Auth0 api explorer](https://auth0.com/docs/apiv2) the original Swagger UI repo is modified to use a responsive layout.
+Based off of [Swagger UI responsive theme](https://github.com/jensoleg/swagger-ui) modified to use bootstrap v4.0.0-beta.3 and refactored a bit for added flexibility.
 
-[![Swagger Theme example](dist/images/Swagger_explorer.png)](http://ecs.bobbytech.dk/api)
+[![Swagger Theme example](dist/images/Swagger_explorer.png)](http://andresthegiant.com/boostrap-swagger-ui/?url=http://petstore.swagger.io/v2/swagger.json)
 
 The theme will adapt to screen size and works on tablets and mobile phones.
 
-[![Swagger Theme example](dist/images/Swagger_explorer_min.png)](http://ecs.bobbytech.dk/api)
+[![Swagger Theme example](dist/images/Swagger_explorer_min.png)](http://andresthegiant.com/boostrap-swagger-ui/?url=http://petstore.swagger.io/v2/swagger.json)
 
-A JSON editor for the request body (disabled by default).
+Give it a [try](http://andresthegiant.com/boostrap-swagger-ui/?url=http://petstore.swagger.io/v2/swagger.json) and enter your own swagger definition.
 
-![Swagger JSON editor example](dist/images/json_editor_integration.png)
+## Customizing The Theme
 
-JSON editor configuration example:
+* Includes Bootstrap v4.0.0-beta.3 SCSS
+* Uses broserSync for live reloading
 
-```javascript
-                jsonEditor: true,
-                jsonEditorOptions: {
-                    disableProperties:false,
-                    disableEditJson:false,
-                    removeEmptyProperties:true,
-                    noDefaultProperties:true
-                },
-                docExpansion: "none",
-                sorter: "alpha",
-```
-
-Give it a [try](http://swaggerui.herokuapp.com/?url=http://petstore.swagger.io/v2/swagger.json) and enter your own swagger definition.
-
+1. $`npm install`
+1. $`gulp serve`
+1. [Update Sass](src/main/scss)
+1. [Update Templates](src/main/template)
+1. [Update JS](src/main/javascript/view)
 
 ## Disclaimer
 
@@ -35,11 +27,13 @@ This is not a fully polished implementation and should be used with care.
 
 ## License
 
-Copyright 2011-2015 Reverb technologies, Inc.
+Copyright 2018 Andres The Giant LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
-You may obtain a copy of the License at [apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,

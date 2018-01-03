@@ -51,24 +51,6 @@ window.SwaggerUi = Backbone.Router.extend({
     this.options.success = function() { return that.render(); };
     this.options.progress = function(d) { return that.showMessage(d); };
     this.options.failure = function(d) { return that.onLoadFailure(d); };
-
-    // Create view to handle the header inputs
-    //this.headerView = new SwaggerUi.Views.HeaderView({el: $('#header')});
-
-    // Event handler for when the baseUrl/apiKey is entered by user
-    /*
-    this.headerView.on('update-swagger-ui', function(data) {
-      return that.updateSwaggerUi(data);
-    });
-    */
-    //JSon Editor custom theming
-    JSONEditor.defaults.iconlibs.swagger = JSONEditor.AbstractIconLib.extend({
-      mapping: {
-        collapse: 'collapse',
-        expand: 'expand'
-      },
-      icon_prefix: 'swagger-'
-    });
   },
 
   // Set an option after initializing

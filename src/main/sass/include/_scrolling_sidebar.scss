@@ -1,0 +1,42 @@
+@include media-breakpoint-up(lg) {
+  html {
+    height: 100%;
+    body{
+      height: 100%;
+      position: relative;
+
+      #main-nav{
+        z-index: $zindex-fixed;
+      }
+
+      main{
+        height: 100%;
+
+        #swagger-ui-container{
+          height: 100%;
+
+          #swagger_sidebar{
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 54px;
+            overflow-y: scroll;
+
+            &.fixed-sidebar{
+              position: fixed;
+              top: 0;
+            }
+          }
+
+          #resources_container{
+            margin-left: 25%;
+
+            @include media-breakpoint-up(xl) {
+                margin-left: 16.66667%;
+            }
+          }
+        }
+      }
+    }
+  }
+}

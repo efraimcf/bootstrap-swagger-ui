@@ -23,19 +23,24 @@
         nav.nav{
             a.nav-link{
                 color: $body-color;
+
+                &.active{
+                    font-weight: bold;
+
+                    + .sub_menu{
+                        display: block;
+                    }
+                }
             }
 
             &.sub_menu{
+                display: none;
                 background: theme-color("light");
                 font-size: $font-size-sm;
 
                 a.nav-link{
                     border-top: 1px solid $card-border-color;
                     padding-left: $grid-gutter-width;
-
-                    &.active{
-                        font-weight: bold;
-                    }
 
                     &.first-child{
                         border-top: 0;

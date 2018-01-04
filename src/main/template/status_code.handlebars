@@ -1,2 +1,9 @@
-<td style="width: 20px;"><strong>{{code}}</strong></td>
-<td>{{{message}}}</td>
+<div class="row">
+    <div class="col-2 col-lg-1 py-3"><strong>{{code}}</strong></div>
+    <div class="col-10 col-lg-11 py-3">{{{message}}}</div>
+    {{#if examples}}
+    <div class="col-12">
+        <pre><code class="rounded">{{examples}}</pre><code>
+    </div>
+    {{/if}}
+</div>

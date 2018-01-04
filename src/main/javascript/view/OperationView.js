@@ -83,18 +83,21 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
       ref2 = this.model.responses;
       for (code in ref2) {
         value = ref2[code];
+        example = JSON.stringify(value.examples, null, '  ');
         schema = null;
-        schemaObj = this.model.responses[code].schema;
-        if (schemaObj && schemaObj.$ref) {
-          schema = schemaObj.$ref;
-          if (schema.indexOf('#/definitions/') === 0) {
-            schema = schema.substring('#/definitions/'.length);
-          }
-        }
+        // schema = JSON.stringify(value.schema, null, '  ');
+        // schemaObj = this.model.responses[code].schema;
+        // if (schemaObj && schemaObj.$ref) {
+        //   schema = schemaObj.$ref;
+        //   if (schema.indexOf('#/definitions/') === 0) {
+        //     schema = schema.substring('#/definitions/'.length);
+        //   }
+        // }
         this.model.responseMessages.push({
           code: code,
           message: value.description,
-          responseModel: schema
+          responseModel: schema,
+          examples: example
         });
       }
     }
@@ -240,10 +243,12 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
   },
 
   addStatusCode: function (statusCode) {
+    console.log(statusCode)
     // Render status codes
     var statusCodeView = new SwaggerUi.Views.StatusCodeView({
       model: statusCode,
-      tagName: 'tr',
+      tagName: 'div',
+      className: 'border border-bottom-0 border-left-0 border-right-0',
       router: this.router
     });
     $('.operation-status', $(this.el)).append(statusCodeView.render().el);
@@ -664,6 +669,7 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
     $('.request_url pre code', $(this.el)).text(url);
     $('.response_code', $(this.el)).html('<pre><code class="hljs rounded">' + response.status + '</code></pre>');
     $('.response_body', $(this.el)).html(response_body);
+    $('.response_headers', $(this.el)).html('<pre clas="json"><code class="hljs rounded">' + JSON.stringify(response.headers, null, '  ') + '</code></pre>');
     $('.response_throbber', $(this.el)).hide();
     var response_body_el = $('.response_body pre code', $(this.el))[0],
         response_headers_el = $('.response_headers pre code', $(this.el))[0];

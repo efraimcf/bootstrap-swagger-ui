@@ -251,11 +251,11 @@ this["Handlebars"]["templates"]["operation"] = Handlebars.template({"1":function
   return "                            <div class=\"response-content-type card card-body pb-3 bg-light mb-3\"/>\n";
   },"15":function(depth0,helpers,partials,data) {
   var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
-  return "                        <h6 class=\"pt-3\" data-control>\n                            Responses\n                        </h6>\n\n                        <div data-content class=\"responses-wrapper table-responsive\" id=\"response-"
+  return "                        <h6 class=\"pt-3\" data-control>\n                            Responses\n                        </h6>\n                        <div data-content class=\"responses-wrapper\" id=\"response-"
     + escapeExpression(((helper = (helper = helpers.parentId || (depth0 != null ? depth0.parentId : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"parentId","hash":{},"data":data}) : helper)))
     + "_"
     + escapeExpression(((helper = (helper = helpers.nickname || (depth0 != null ? depth0.nickname : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"nickname","hash":{},"data":data}) : helper)))
-    + "\">\n                            <table class=\"table\">\n                                <tbody class=\"operation-status\">\n                                </tbody>\n                            </table>\n                        </div>\n";
+    + "\">\n                            <div class=\"operation-status\">\n                            </div>\n                        </div>\n";
 },"17":function(depth0,helpers,partials,data) {
   return "badge-secondary";
   },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -728,13 +728,21 @@ this["Handlebars"]["templates"]["signature"] = Handlebars.template({"1":function
   if (stack1 != null) { buffer += stack1; }
   return buffer + "</div>";
 },"useData":true});
-this["Handlebars"]["templates"]["status_code"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-  var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "<td style=\"width: 20px;\"><strong>"
+this["Handlebars"]["templates"]["status_code"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
+  var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+  return "    <div class=\"col-12\">\n        <pre><code class=\"rounded\">"
+    + escapeExpression(((helper = (helper = helpers.examples || (depth0 != null ? depth0.examples : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"examples","hash":{},"data":data}) : helper)))
+    + "</pre><code>\n    </div>\n";
+},"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+  var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "<div class=\"row\">\n    <div class=\"col-2 col-lg-1 py-3\"><strong>"
     + escapeExpression(((helper = (helper = helpers.code || (depth0 != null ? depth0.code : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"code","hash":{},"data":data}) : helper)))
-    + "</strong></td>\n<td>";
+    + "</strong></div>\n    <div class=\"col-10 col-lg-11 py-3\">";
   stack1 = ((helper = (helper = helpers.message || (depth0 != null ? depth0.message : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"message","hash":{},"data":data}) : helper));
   if (stack1 != null) { buffer += stack1; }
-  return buffer + "</td>\n";
+  buffer += "</div>\n";
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.examples : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});
+  if (stack1 != null) { buffer += stack1; }
+  return buffer + "</div>\n";
 },"useData":true});
 /**
  * swagger-client - swagger-client is a javascript client for use with swaggering APIs.
@@ -21459,18 +21467,21 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
       ref2 = this.model.responses;
       for (code in ref2) {
         value = ref2[code];
+        example = JSON.stringify(value.examples, null, '  ');
         schema = null;
-        schemaObj = this.model.responses[code].schema;
-        if (schemaObj && schemaObj.$ref) {
-          schema = schemaObj.$ref;
-          if (schema.indexOf('#/definitions/') === 0) {
-            schema = schema.substring('#/definitions/'.length);
-          }
-        }
+        // schema = JSON.stringify(value.schema, null, '  ');
+        // schemaObj = this.model.responses[code].schema;
+        // if (schemaObj && schemaObj.$ref) {
+        //   schema = schemaObj.$ref;
+        //   if (schema.indexOf('#/definitions/') === 0) {
+        //     schema = schema.substring('#/definitions/'.length);
+        //   }
+        // }
         this.model.responseMessages.push({
           code: code,
           message: value.description,
-          responseModel: schema
+          responseModel: schema,
+          examples: example
         });
       }
     }
@@ -21616,10 +21627,12 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
   },
 
   addStatusCode: function (statusCode) {
+    console.log(statusCode)
     // Render status codes
     var statusCodeView = new SwaggerUi.Views.StatusCodeView({
       model: statusCode,
-      tagName: 'tr',
+      tagName: 'div',
+      className: 'border border-bottom-0 border-left-0 border-right-0',
       router: this.router
     });
     $('.operation-status', $(this.el)).append(statusCodeView.render().el);
@@ -22040,6 +22053,7 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
     $('.request_url pre code', $(this.el)).text(url);
     $('.response_code', $(this.el)).html('<pre><code class="hljs rounded">' + response.status + '</code></pre>');
     $('.response_body', $(this.el)).html(response_body);
+    $('.response_headers', $(this.el)).html('<pre clas="json"><code class="hljs rounded">' + JSON.stringify(response.headers, null, '  ') + '</code></pre>');
     $('.response_throbber', $(this.el)).hide();
     var response_body_el = $('.response_body pre code', $(this.el))[0],
         response_headers_el = $('.response_headers pre code', $(this.el))[0];
@@ -22085,7 +22099,6 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
 
 
 });
-
 'use strict';
 
 SwaggerUi.Views.ParameterContentTypeView = Backbone.View.extend({

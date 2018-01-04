@@ -3,7 +3,6 @@
 SwaggerUi.Views.ApiKeyButton = Backbone.View.extend({ // TODO: append this to global SwaggerUi
 
   events:{
-    // 'click #apikey_button' : 'toggleApiKeyContainer',
     'click #apply_api_key' : 'applyApiKey'
   },
 
@@ -24,7 +23,7 @@ SwaggerUi.Views.ApiKeyButton = Backbone.View.extend({ // TODO: append this to gl
     if (key && key.trim() != "") {
         var apiKeyAuth = new SwaggerClient.ApiKeyAuthorization(this.model.name, key, this.model.in);
         window.swaggerUi.api.clientAuthorizations.add(this.model.name, apiKeyAuth);
-        log("added " + this.model.name + ":" + key);
+        log("added " + this.model.name + ":" + key + " in " + this.model.in);
     }
   },
 

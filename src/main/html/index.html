@@ -100,6 +100,14 @@
                 scrollOffsetY: 54
             });
 
+            // Scroll To Item
+            var ancloc = window.location.hash;
+            if(ancloc){
+                setTimeout(function(){
+                    document.location.href=ancloc;
+                }, 100);
+            }
+
             // Optional if including Explore form
             $('#update-url').click(function(){
                 window.swaggerUi.updateSwaggerUi({

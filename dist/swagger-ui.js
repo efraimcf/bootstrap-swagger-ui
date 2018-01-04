@@ -21035,7 +21035,6 @@ window.SwaggerUi.Views = {};
 SwaggerUi.Views.ApiKeyButton = Backbone.View.extend({ // TODO: append this to global SwaggerUi
 
   events:{
-    // 'click #apikey_button' : 'toggleApiKeyContainer',
     'click #apply_api_key' : 'applyApiKey'
   },
 
@@ -21056,7 +21055,7 @@ SwaggerUi.Views.ApiKeyButton = Backbone.View.extend({ // TODO: append this to gl
     if (key && key.trim() != "") {
         var apiKeyAuth = new SwaggerClient.ApiKeyAuthorization(this.model.name, key, this.model.in);
         window.swaggerUi.api.clientAuthorizations.add(this.model.name, apiKeyAuth);
-        log("added " + this.model.name + ":" + key);
+        log("added " + this.model.name + ":" + key + " in " + this.model.in);
     }
   },
 
@@ -21091,7 +21090,7 @@ SwaggerUi.Views.ApiKeys = Backbone.View.extend({ // TODO: append this to global 
       if (key && key.trim() != "") {
           var apiKeyAuth = new SwaggerClient.ApiKeyAuthorization(this.model[i].name, key, this.model[i].in);
           window.swaggerUi.api.clientAuthorizations.add(this.model[i].name, apiKeyAuth);
-          log("added " + this.model[i].name + ":" + key);
+          log("added " + this.model[i].name + ":" + key + " in " + this.model[i].in);
       }
     }
   },
@@ -21105,8 +21104,11 @@ SwaggerUi.Views.ApiKeys = Backbone.View.extend({ // TODO: append this to global 
 
 SwaggerUi.Views.BasicAuthButton = Backbone.View.extend({
 
+  events:{
+    'click #apply_basic_auth' : 'applyPassword'
+  },
 
-  initialize: function (opts) {
+  initialize: function(opts){
     this.options = opts || {};
     this.router = this.options.router;
   },
@@ -21118,16 +21120,12 @@ SwaggerUi.Views.BasicAuthButton = Backbone.View.extend({
     return this;
   },
 
-  events: {
-    'click #apply_basic_auth' : 'applyPassword'
-  },
-
   applyPassword: function(){
     var username = $('#input_username').val();
     var password = $('#input_password').val();
     var basicAuth = new SwaggerClient.PasswordAuthorization('basic', username, password);
-    this.router.api.clientAuthorizations.add(this.model.type, basicAuth);
-    this.router.load();
+    window.swaggerUi.api.clientAuthorizations.add('basic', basicAuth);
+    log("added passwordAuth");
   },
 
   template: function(){
@@ -21160,7 +21158,7 @@ SwaggerUi.Views.BearerButton = Backbone.View.extend({ // TODO: append this to gl
     if (key && key.trim() != "") {
         var apiKeyAuth = new SwaggerClient.ApiKeyAuthorization("Authorization", "Bearer " + key, "header");
         window.swaggerUi.api.clientAuthorizations.add(this.model.name, apiKeyAuth);
-        log("added Bearer :" + key);
+        log("added Bearer :" + key + " in header");
     }
   },
 

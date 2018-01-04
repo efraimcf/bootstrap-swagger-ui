@@ -17,14 +17,14 @@
 
           #swagger_sidebar{
             height: 100%;
-            position: absolute;
+            position: fixed;
             left: 0;
-            top: 54px;
+            top: 0;
             overflow-y: scroll;
 
-            &.sps--blw{
-              position: fixed;
-              top: 0;
+            &.sps--abv{
+              position: absolute;
+              top: 54px;
             }
           }
 

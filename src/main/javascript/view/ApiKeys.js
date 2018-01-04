@@ -24,7 +24,7 @@ SwaggerUi.Views.ApiKeys = Backbone.View.extend({ // TODO: append this to global 
       if (key && key.trim() != "") {
           var apiKeyAuth = new SwaggerClient.ApiKeyAuthorization(this.model[i].name, key, this.model[i].in);
           window.swaggerUi.api.clientAuthorizations.add(this.model[i].name, apiKeyAuth);
-          log("added " + this.model[i].name + ":" + key);
+          log("added " + this.model[i].name + ":" + key + " in " + this.model[i].in);
       }
     }
   },

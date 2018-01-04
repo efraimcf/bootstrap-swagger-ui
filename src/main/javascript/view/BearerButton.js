@@ -23,7 +23,7 @@ SwaggerUi.Views.BearerButton = Backbone.View.extend({ // TODO: append this to gl
     if (key && key.trim() != "") {
         var apiKeyAuth = new SwaggerClient.ApiKeyAuthorization("Authorization", "Bearer " + key, "header");
         window.swaggerUi.api.clientAuthorizations.add(this.model.name, apiKeyAuth);
-        log("added Bearer :" + key);
+        log("added Bearer :" + key + " in header");
     }
   },
 

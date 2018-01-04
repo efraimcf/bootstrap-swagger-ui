@@ -27,6 +27,10 @@
             a.nav-link{
                 color: $body-color;
 
+                &:hover{
+                    color: lighten($body-color, 25%);
+                }
+
                 &.active{
                     font-weight: bold;
 

@@ -131,8 +131,10 @@ Handlebars.registerHelper('methodBadgeClass', function(method) {
         return 'badge-primary';
     } else if(method == 'delete') {
         return 'badge-danger';
-    } else {
+    } else if(method == 'patch') {
         return 'badge-info';
+    } else {
+        return 'badge-secondary';
     }
 });
 
@@ -222,15 +224,15 @@ this["Handlebars"]["templates"]["main"] = Handlebars.template({"1":function(dept
     + "\">\n                        <a href=\"#auth_main_container\" class=\"nav-link\" data-toggle=\"collapse\">Swagger Resource</a>\n                    </nav>\n                    <div class=\"col-12 d-none d-lg-block\"><label class=\"text-uppercase mt-3 mb-0\">API Reference</label></div>\n                </div>\n            </div>\n        </div>\n        <div class=\"card bg-light d-none d-lg-block\">\n";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.info : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
-  return buffer + "        </div>\n    </div>\n</div>\n\n<div id=\"resources_container\" class=\"col-lg-9 col-xl-10 sps sps--abv\">\n    <div id=\"resources\" class=\"samples-collapsed\"></div>\n</div>\n";
+  return buffer + "        </div>\n    </div>\n</div>\n\n<div id=\"resources_container\" class=\"col-lg-9 col-xl-10\">\n    <div id=\"resources\" class=\"samples-collapsed\"></div>\n</div>\n";
 },"useData":true});
 this["Handlebars"]["templates"]["operation"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
-  return "badge-secondary";
+  return "badge-light";
   },"3":function(depth0,helpers,partials,data) {
   var helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
   return escapeExpression(((helpers.methodBadgeClass || (depth0 && depth0.methodBadgeClass) || helperMissing).call(depth0, (depth0 != null ? depth0.method : depth0), {"name":"methodBadgeClass","hash":{},"data":data})));
   },"5":function(depth0,helpers,partials,data) {
-  return "                    <h6>Warning: Deprecated</h6>\n";
+  return "                    <h6 class=\"text-warning\">Warning: Deprecated</h6>\n";
   },"7":function(depth0,helpers,partials,data) {
   var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, buffer = "                    <div class=\"markdown action-summary\">";
   stack1 = ((helper = (helper = helpers.description || (depth0 != null ? depth0.description : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"description","hash":{},"data":data}) : helper));
@@ -254,7 +256,9 @@ this["Handlebars"]["templates"]["operation"] = Handlebars.template({"1":function
     + "_"
     + escapeExpression(((helper = (helper = helpers.nickname || (depth0 != null ? depth0.nickname : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"nickname","hash":{},"data":data}) : helper)))
     + "\">\n                            <table class=\"table\">\n                                <tbody class=\"operation-status\">\n                                </tbody>\n                            </table>\n                        </div>\n";
-},"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+},"17":function(depth0,helpers,partials,data) {
+  return "badge-secondary";
+  },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   var stack1, helper, options, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, blockHelperMissing=helpers.blockHelperMissing, buffer = "<div class=\"operations\">\n    <div class=\""
     + escapeExpression(((helper = (helper = helpers.method || (depth0 != null ? depth0.method : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"method","hash":{},"data":data}) : helper)))
     + " operation\" id=\""
@@ -311,7 +315,7 @@ this["Handlebars"]["templates"]["operation"] = Handlebars.template({"1":function
     + "\">\n            <div class=\"modal-dialog\" role=\"document\">\n                <div class=\"modal-content\">\n                    <div class=\"modal-header\">\n                        <h5 class=\"modal-title text-center\">\n                            "
     + escapeExpression(((helper = (helper = helpers.summary || (depth0 != null ? depth0.summary : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"summary","hash":{},"data":data}) : helper)))
     + " <span class=\"http_method badge ";
-  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.deprecated : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.program(3, data),"data":data});
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.deprecated : depth0), {"name":"if","hash":{},"fn":this.program(17, data),"inverse":this.program(3, data),"data":data});
   if (stack1 != null) { buffer += stack1; }
   return buffer + "\">"
     + escapeExpression(((helper = (helper = helpers.method || (depth0 != null ? depth0.method : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"method","hash":{},"data":data}) : helper)))
@@ -353,11 +357,11 @@ this["Handlebars"]["templates"]["param_list"] = Handlebars.template({"1":functio
     + escapeExpression(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"type","hash":{},"data":data}) : helper)))
     + "</code></pre></small>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-  var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, lambda=this.lambda, buffer = "<div class=\"form-group row\">\n    <label class=\"param-property text-nowrap col-lg-2 text-lg-right col-form-label\">\n        "
+  var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, lambda=this.lambda, buffer = "<div class=\"form-group row\">\n    <label class=\"param-property text-nowrap col-lg-3 col-xl-2 text-lg-right col-form-label\">\n        "
     + escapeExpression(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"name","hash":{},"data":data}) : helper)))
     + ":</br>\n        <small class=\"text-muted\"><em>("
     + escapeExpression(lambda((depth0 != null ? depth0['in'] : depth0), depth0))
-    + ")</em></small>\n    </label>\n    <div class=\"param-property col-lg-10\" data-label=\""
+    + ")</em></small>\n    </label>\n    <div class=\"param-property col-lg-9 col-xl-10\" data-label=\""
     + escapeExpression(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"name","hash":{},"data":data}) : helper)))
     + "\">\n        <select ";
   stack1 = ((helpers.isArray || (depth0 && depth0.isArray) || helperMissing).call(depth0, depth0, {"name":"isArray","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data}));
@@ -403,11 +407,11 @@ this["Handlebars"]["templates"]["param_readonly_required"] = Handlebars.template
     + escapeExpression(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"type","hash":{},"data":data}) : helper)))
     + "</code></pre></small>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-  var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, lambda=this.lambda, buffer = "<div class=\"form-group row\">\n    <label class=\"param-property text-nowrap col-lg-2 text-lg-right col-form-label\">\n        "
+  var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, lambda=this.lambda, buffer = "<div class=\"form-group row\">\n    <label class=\"param-property text-nowrap col-lg-3 col-xl-2 text-lg-right col-form-label\">\n        "
     + escapeExpression(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"name","hash":{},"data":data}) : helper)))
     + ":</br>\n        <small class=\"text-muted\"><em>("
     + escapeExpression(lambda((depth0 != null ? depth0['in'] : depth0), depth0))
-    + ")</em></small>\n    </label>\n    <div class=\"param-property col-lg-10\" data-label=\""
+    + ")</em></small>\n    </label>\n    <div class=\"param-property col-lg-9 col-xl-10\" data-label=\""
     + escapeExpression(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"name","hash":{},"data":data}) : helper)))
     + "\">\n";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.isBody : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.program(3, data),"data":data});
@@ -444,11 +448,11 @@ this["Handlebars"]["templates"]["param_readonly"] = Handlebars.template({"1":fun
     + escapeExpression(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"type","hash":{},"data":data}) : helper)))
     + "</code></pre></small>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-  var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, lambda=this.lambda, buffer = "<div class=\"form-group row\">\n    <label class=\"param-property text-nowrap col-lg-2 text-lg-right col-form-label\">\n        "
+  var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, lambda=this.lambda, buffer = "<div class=\"form-group row\">\n    <label class=\"param-property text-nowrap col-lg-3 col-xl-2 text-lg-right col-form-label\">\n        "
     + escapeExpression(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"name","hash":{},"data":data}) : helper)))
     + ":</br>\n        <small class=\"text-muted\"><em>("
     + escapeExpression(lambda((depth0 != null ? depth0['in'] : depth0), depth0))
-    + ")</em></small>\n    </label>\n    <div class=\"param-property col-lg-10\" data-label=\""
+    + ")</em></small>\n    </label>\n    <div class=\"param-property col-lg-9 col-xl-10\" data-label=\""
     + escapeExpression(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"name","hash":{},"data":data}) : helper)))
     + "\">\n";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.isBody : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.program(3, data),"data":data});
@@ -524,11 +528,11 @@ this["Handlebars"]["templates"]["param_required"] = Handlebars.template({"1":fun
     + escapeExpression(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"type","hash":{},"data":data}) : helper)))
     + "</code></pre></small>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-  var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, lambda=this.lambda, buffer = "<div class=\"form-group row\">\n    <label class=\"param-property text-nowrap col-lg-2 text-lg-right col-form-label\">\n        "
+  var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, lambda=this.lambda, buffer = "<div class=\"form-group row\">\n    <label class=\"param-property text-nowrap col-lg-3 col-xl-2 text-lg-right col-form-label\">\n        "
     + escapeExpression(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"name","hash":{},"data":data}) : helper)))
     + ":</br>\n        <small class=\"text-muted\"><em>("
     + escapeExpression(lambda((depth0 != null ? depth0['in'] : depth0), depth0))
-    + ")</em></small>\n    </label>\n    <div class=\"param-property col-lg-10\" data-label=\""
+    + ")</em></small>\n    </label>\n    <div class=\"param-property col-lg-9 col-xl-10\" data-label=\""
     + escapeExpression(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"name","hash":{},"data":data}) : helper)))
     + "\">\n";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.isBody : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.program(9, data),"data":data});
@@ -619,11 +623,11 @@ this["Handlebars"]["templates"]["param"] = Handlebars.template({"1":function(dep
     + escapeExpression(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"type","hash":{},"data":data}) : helper)))
     + "</code></pre></small>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-  var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, lambda=this.lambda, buffer = "<div class=\"form-group row\">\n    <label class=\"param-property text-nowrap col-lg-2 text-lg-right col-form-label\">\n        "
+  var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, lambda=this.lambda, buffer = "<div class=\"form-group row\">\n    <label class=\"param-property text-nowrap col-lg-3 col-xl-2 text-lg-right col-form-label\">\n        "
     + escapeExpression(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"name","hash":{},"data":data}) : helper)))
     + ":</br>\n        <small class=\"text-muted\"><em>("
     + escapeExpression(lambda((depth0 != null ? depth0['in'] : depth0), depth0))
-    + ")</em></small>\n    </label>\n    <div class=\"param-property col-lg-10\" data-label=\""
+    + ")</em></small>\n    </label>\n    <div class=\"param-property col-lg-9 col-xl-10\" data-label=\""
     + escapeExpression(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"name","hash":{},"data":data}) : helper)))
     + "\">\n";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.isBody : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.program(11, data),"data":data});

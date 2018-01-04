@@ -16,32 +16,23 @@
           height: 100%;
 
           #swagger_sidebar{
-            position: sticky;
+            position: absolute;
             left: 0;
-            top: 0;
+            top: 54px;
+            height: 100%;
             overflow-y: scroll;
 
             &.sps--blw{
-              position: fixed;
-              height: 100%;
-              padding-top: 0;
-            }
-
-            &.sps--abv{
-              position: absolute;
-              height: 100%;
-              top: 54px;
+              position: fixed; 
+              top: 0;
             }
           }
 
           #resources_container{
-            &.sps--blw,
-            &.sps--abv{
-              margin-left: 25%;
+            margin-left: 25%;
 
-              @include media-breakpoint-up(xl) {
-                  margin-left: 16.66667%;
-              }
+            @include media-breakpoint-up(xl) {
+                margin-left: 16.66667%;
             }
           }
         }

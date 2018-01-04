@@ -73,7 +73,7 @@
             window.swaggerUi = new SwaggerUi({
                 url: url, // Required
                 dom_id: "swagger-ui-container",
-                supportedSubmitMethods: ['get', 'post', 'put', 'delete', 'patch'],
+                supportedSubmitMethods: ['get', 'post', 'put', 'delete', 'patch', 'head', 'options'],
                 onComplete: function (swaggerApi, swaggerUi) {
                     if (typeof initOAuth == "function") {
                         initOAuth();

@@ -9,7 +9,7 @@
                     <div class="d-lg-flex align-items-center">
                         <div class="mr-auto">
                             <h5 class="text-truncate">
-                                <span class="http_method badge {{#if deprecated}}badge-secondary{{else}}{{methodBadgeClass method}}{{/if}}">{{method}}</span>
+                                <span class="http_method badge {{#if deprecated}}badge-light{{else}}{{methodBadgeClass method}}{{/if}}">{{method}}</span>
                                 <span class="path text-muted">{{path}}</span>
                             </h5>
                         </div>
@@ -23,7 +23,7 @@
                 </div>
 
                 {{#if deprecated}}
-                    <h6>Warning: Deprecated</h6>
+                    <h6 class="text-warning">Warning: Deprecated</h6>
                 {{/if}}
                 {{#if description}}
                     <div class="markdown action-summary">{{{description}}}</div>

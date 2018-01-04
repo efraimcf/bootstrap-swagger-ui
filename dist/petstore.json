@@ -235,7 +235,7 @@
       }
     },
     "/pet/{petId}": {
-      "get": {
+      "patch": {
         "tags": [
           "pet"
         ],
@@ -276,7 +276,7 @@
           }
         ]
       },
-      "post": {
+      "head": {
         "tags": [
           "pet"
         ],

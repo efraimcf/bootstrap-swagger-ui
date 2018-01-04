@@ -15,8 +15,10 @@ Handlebars.registerHelper('methodBadgeClass', function(method) {
         return 'badge-primary';
     } else if(method == 'delete') {
         return 'badge-danger';
-    } else {
+    } else if(method == 'patch') {
         return 'badge-info';
+    } else {
+        return 'badge-secondary';
     }
 });
 

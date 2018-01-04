@@ -222,7 +222,7 @@ this["Handlebars"]["templates"]["main"] = Handlebars.template({"1":function(dept
     + "\">\n                        <a href=\"#auth_main_container\" class=\"nav-link\" data-toggle=\"collapse\">Swagger Resource</a>\n                    </nav>\n                    <div class=\"col-12 d-none d-lg-block\"><label class=\"text-uppercase mt-3 mb-0\">API Reference</label></div>\n                </div>\n            </div>\n        </div>\n        <div class=\"card bg-light d-none d-lg-block\">\n";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.info : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
-  return buffer + "        </div>\n    </div>\n</div>\n\n<div id=\"resources_container\" class=\"col-lg-9 col-xl-10\">\n    <div id=\"resources\" class=\"samples-collapsed\"></div>\n</div>\n";
+  return buffer + "        </div>\n    </div>\n</div>\n\n<div id=\"resources_container\" class=\"col-lg-9 col-xl-10 sps\">\n    <div id=\"resources\" class=\"samples-collapsed\"></div>\n</div>\n";
 },"useData":true});
 this["Handlebars"]["templates"]["operation"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
   return "badge-secondary";

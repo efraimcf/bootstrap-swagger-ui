@@ -22173,6 +22173,10 @@ SwaggerUi.Views.ParameterView = Backbone.View.extend({
 
     if(this.model.format === 'password') {
         this.model.inputType = 'password';
+    } else if(this.model.type === 'integer') {
+      this.model.inputType = 'number';
+    } else if(this.model.format === 'email') {
+      this.model.inputType = 'email';
     } else {
         this.model.inputType = 'text';
     }

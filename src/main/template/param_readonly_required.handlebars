@@ -5,8 +5,7 @@
     </label>
     <div class="param-property col-lg-9 col-xl-10" data-label="{{name}}">
         {{#if isBody}}
-            <textarea class="body-textarea form-control" readonly placeholder="(required)" name="{{name}}"  data-toggle="tooltip" data-placement="top" title="" data-original-title="{{name}}" rows="3">{{default}}</textarea>
-            <div class="parameter-content-type"/>
+            <textarea class="body-textarea form-control required" readonly placeholder="(required)" name="{{name}}"  data-toggle="tooltip" data-placement="top" title="" data-original-title="{{name}}" rows="3">{{default}}</textarea>
         {{else}}
             {{#if default}}
                 {{default}}
@@ -14,6 +13,7 @@
                 (empty)
             {{/if}}
         {{/if}}
+        <div class="parameter-content-type"/>
         <div class="small-description media mt-2">
             {{#if type}}
                 <small><pre class="mb-0 mr-2"><code class="code-signature hljs rounded">{{type}}</code></pre></small>

@@ -290,6 +290,20 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
         error_free = false;
       }
     });
+    form.find('label.required').each(function () {
+      $(this).removeClass('is-invalid');
+      if (jQuery.trim($(this).find('input').val()) === '') {
+        $(this).addClass('is-invalid');
+        $(this).wiggle({
+          callback: (function (_this) {
+            return function () {
+              return $(_this).focus();
+            };
+          })(this)
+        });
+        error_free = false;
+      }
+    });
     if (error_free) {
       map = {};
       opts = {

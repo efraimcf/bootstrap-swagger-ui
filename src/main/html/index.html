@@ -62,30 +62,24 @@
 
     <script type="text/javascript">
         $(function () {
-            // Optional for dynamically setting URL via query param
-            var url = window.location.search.match(/url=([^&]+)/);
-            if (url && url.length > 1) {
-                url = decodeURIComponent(url[1]);
-            } else {
-                url = window.location.toString().replace(/\/*#?.*/, '/petstore.json');
-            }
-
             window.swaggerUi = new SwaggerUi({
-                url: url, // Required
+                url: '/petstore.json', // Required
                 dom_id: "swagger-ui-container",
                 supportedSubmitMethods: ['get', 'post', 'put', 'delete', 'patch', 'head', 'options'],
                 onComplete: function (swaggerApi, swaggerUi) {
-                    if (typeof initOAuth == "function") {
-                        initOAuth();
-                    }
-
                     $('pre code').each(function (i, e) {
                         hljs.highlightBlock(e)
                     });
 
-                    if (swaggerUi.options.url) {
-                        $('#input_baseUrl').val(swaggerUi.options.url);
+                    ScrollPosStyler.init({ scrollOffsetY: 54 });
+
+                    // Scroll To Item
+                    var ancloc = window.location.hash;
+                    if(ancloc){
+                        document.location.href=ancloc;
                     }
+
+                    addApiKeyAuthorization();
                 },
                 onFailure: function (data) {
                     console.log("Unable to Load SwaggerUI");
@@ -93,19 +87,13 @@
                 docExpansion: "none",
                 sorter: "alpha"
             });
-
             window.swaggerUi.load();
 
-            ScrollPosStyler.init({
-                scrollOffsetY: 54
-            });
-
-            // Scroll To Item
-            var ancloc = window.location.hash;
-            if(ancloc){
-                setTimeout(function(){
-                    document.location.href=ancloc;
-                }, 100);
+            function addApiKeyAuthorization() {
+                key = 'fbc44ac8-e03f-4611-847a-6d5a72bbe76b';
+                var apiKeyAuth = new SwaggerClient.ApiKeyAuthorization('x-api-key', key, 'header');
+                window.swaggerUi.api.clientAuthorizations.add('x-api-key', apiKeyAuth);
+                $('#input_apiKey_slyce-account-id').val(key)
             }
 
             // Optional if including Explore form

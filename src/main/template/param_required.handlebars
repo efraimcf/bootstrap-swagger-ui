@@ -6,22 +6,25 @@
     <div class="param-property col-lg-9 col-xl-10" data-label="{{name}}">
         {{#if isBody}}
             {{#if isFile}}
-                <input class="form-control required" type="file" name="{{name}}"/>
+                <label class="btn btn-secondary btn-sm required" for="my-file-selector">
+                    <input type="file" style="display:none;" name="{{name}}">
+                    Choose file
+                </label>
             {{else}}
                 {{#if default}}
                     <div class="editor_holder"></div>
                     <textarea class="body-textarea form-control required" placeholder="(required)" name="{{name}}" rows="3">{{default}}</textarea>
-                    <div class="parameter-content-type"/>
                 {{else}}
                     <textarea class="body-textarea form-control required" placeholder="(required)" name="{{name}}" rows="3"></textarea>
                     <div class="editor_holder"></div>
-                    <br/>
-                    <div class="parameter-content-type"/>
                 {{/if}}
             {{/if}}
         {{else}}
             {{#if isFile}}
-                <input class="parameter form-control required" type="file" name="{{name}}"/>
+                <label class="btn btn-secondary btn-sm required" for="my-file-selector">
+                    <input type="file" style="display:none;" name="{{name}}">
+                    Choose file
+                </label>
             {{else}}
                 {{#if default}}
                     <input class="parameter form-control required" minlength="1" name="{{name}}" placeholder="(required)" type="{{inputType}}" value="{{default}}" />
@@ -30,6 +33,7 @@
                 {{/if}}
             {{/if}}
         {{/if}}
+        <div class="parameter-content-type"/>
         <div class="small-description media mt-2">
             {{#if type}}
                 <small><pre class="mb-0 mr-2"><code class="code-signature hljs rounded">{{type}}</code></pre></small>
@@ -40,4 +44,3 @@
         </div>
     </div>
 </div>
-

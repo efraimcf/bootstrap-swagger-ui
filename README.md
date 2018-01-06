@@ -21,6 +21,12 @@ Give it a [try](http://swagger-ui.andresthegiant.com/?url=http://petstore.swagge
 1. [Update Templates](src/main/template)
 1. [Update JS](src/main/javascript/view)
 
+### Updating ui-assets
+
+```
+git subtree split --branch ui-assets --prefix dist/assets/
+```
+
 ## Disclaimer
 
 This is not a fully polished implementation and should be used with care.

@@ -6,34 +6,24 @@
     <div class="param-property col-lg-9 col-xl-10" data-label="{{name}}">
         {{#if isBody}}
             {{#if isFile}}
-                <label class="btn btn-secondary btn-sm" for="my-file-selector">
-                    <input type="file" style="display:none;" name="{{name}}">
+                <label class="btn btn-secondary btn-sm" for="{{name}}-file-selector">
+                    <input id="{{name}}-file-selector" type="file" style="display:none;" name="{{name}}">
                     Choose file
                 </label>
             {{else}}
-                {{#if default}}
-                    <div class="editor_holder"></div>
-                    <textarea class="body-textarea form-control" name="{{name}}" rows="3" placeholder="{{default}}"></textarea>
-                {{else}}
-                    <textarea class="body-textarea form-control" name="{{name}}" rows="3"></textarea>
-                    <div class="editor_holder"></div>
-                {{/if}}
+                <textarea class="body-textarea form-control" name="{{name}}" rows="3" placeholder="{{default}}"></textarea>
             {{/if}}
         {{else}}
             {{#if isFile}}
-                <label class="btn btn-secondary btn-sm" for="my-file-selector">
-                    <input type="file" style="display:none;" name="{{name}}">
+                <label class="btn btn-secondary btn-sm" for="{{name}}-file-selector">
+                    <input id="{{name}}-file-selector" type="file" style="display:none;" name="{{name}}">
                     Choose file
                 </label>
             {{else}}
-                {{#if default}}
-                    <input class="parameter form-control" minlength="0" name="{{name}}" type="{{inputType}}" value="" placeholder="{{default}}"/>
-                {{else}}
-                    <input class="parameter form-control" minlength="0" name="{{name}}" type="{{inputType}}" value="" placeholder=""/>
-                {{/if}}
+                <input class="parameter form-control" minlength="0" name="{{name}}" type="{{inputType}}" value="" placeholder="{{default}}"/>
             {{/if}}            
         {{/if}}
-        <div class="parameter-content-type"/>
+        <div class="parameter-content-type mt-2"/>
         <div class="small-description media mt-2">
             {{#if type}}
                 <small><pre class="mb-0 mr-2"><code class="code-signature hljs rounded">{{type}}</code></pre></small>

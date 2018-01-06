@@ -4,7 +4,7 @@
         <small class="text-muted"><em>({{this.in}})</em></small>
     </label>
     <div class="param-property col-lg-9 col-xl-10" data-label="{{name}}">
-        <select {{#isArray this}} multiple="multiple"{{/isArray}} class="parameter form-control" name="{{name}}">
+        <select {{#isArray this}} multiple="multiple"{{/isArray}} class="parameter form-control {{#if required}}required{{/if}}" name="{{name}}">
             {{#if required}}
             {{else}}
                 {{#if default}}
@@ -13,11 +13,7 @@
                 {{/if}}
             {{/if}}
             {{#each allowableValues.descriptiveValues}}
-                {{#if isDefault}}
-                    <option selected="" value="{{value}}">{{value}} (default)</option>
-                {{else}}
-                    <option value="{{value}}">{{value}}</option>
-                {{/if}}
+                <option {{#if isDefault}}selected=""{{/if}} value="{{value}}">{{value}}{{#if isDefault}}(default){{/if}}</option>
             {{/each}}
         </select>
         <div class="small-description media mt-2">
@@ -30,4 +26,6 @@
         </div>
     </div>
 </div>
+
+
 

@@ -61,7 +61,7 @@ gulp.task('dist', ['clean'], function() {
       templates()
     )
     .pipe(order(['scripts.js', 'templates.js']))
-    .pipe(concat('swagger-ui.js'))
+    .pipe(concat('assets/swagger-ui.js'))
     .pipe(wrap('(function(){<%= contents %>}).call(this);'))
     .pipe(header(banner, { pkg: pkg } ))
     .pipe(gulp.dest('./dist'))
@@ -81,7 +81,7 @@ gulp.task('sass', function () {
     .src('./src/main/scss/**.scss')
     .pipe(sass({includePaths: ['./scss'], outputStyle: 'compressed'})
     .on('error', sass.logError))
-    .pipe(gulp.dest('./src/main/html/css/'))
+    .pipe(gulp.dest('./src/main/html/assets/css/'))
     .pipe(browserSync.stream());
 });
 
@@ -93,7 +93,7 @@ gulp.task('copy', ['sass'], function() {
   // copy JavaScript files inside lib folder
   gulp
     .src(['./lib/**/*.{js,map}'])
-    .pipe(gulp.dest('./dist/lib'))
+    .pipe(gulp.dest('./dist/assets/lib'))
     .on('error', log);
 
   // copy all files inside html folder

@@ -1,9 +1,9 @@
 <div id="swagger_sidebar" class="col-lg-3 col-xl-2 sps sps--abv">
     <div id="auth_main_container" class="collapse {{showAuth securityDefinitions}}">
-        <div class="row bg-light">
+        <div class="row">
             <div class="col-12">
                 <button type="button" class="close d-sm-block d-lg-none" data-toggle="collapse" data-target="#auth_main_container">
-                  <span aria-hidden="true">&times;</span>
+                  <i class="fal fa-times"></i>
                 </button>
                 <div id="auth_options">
                 </div>
@@ -21,7 +21,7 @@
                 </div>
             </div>
         </div>
-        <div class="card bg-light d-none d-lg-block">
+        <div class="card d-none d-lg-block">
             {{#if info}}
                 <div class="card-body">
                     <h5 class="card-title">{{info.title}}</h5>

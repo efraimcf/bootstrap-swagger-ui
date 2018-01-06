@@ -14,16 +14,16 @@
                             </h5>
                         </div>
                         <a href="javascript:;" class="toggle-samples text-nowrap text-muted d-none d-lg-block">
-                            <small class="text">Show Samples</small> <i class="fa fa-code"></i>
+                            <small class="text">Show Samples</small> <i class="fal fa-code"></i>
                         </a>
                         <a href="#samples-{{parentId}}_{{nickname}}" class="text-nowrap text-muted d-lg-none">
-                            <small class="text">Show Samples</small> <i class="fa fa-code"></i>
+                            <small class="text">Show Samples</small> <i class="fal fa-code"></i>
                         </a>
                     </div>                    
                 </div>
 
                 {{#if deprecated}}
-                    <h6 class="text-warning">Warning: Deprecated</h6>
+                    <h6 class="text-danger">Warning: Deprecated</h6>
                 {{/if}}
                 {{#if description}}
                     <div class="markdown action-summary">{{{description}}}</div>
@@ -37,15 +37,13 @@
                         <div data-content class="operation-params card card-body pb-1 bg-light mb-3" id="parm-{{parentId}}_{{nickname}}"></div>
                     {{/if}}
 
-                    <h6 data-control>Test this endpoint</h6>
-
                     <div id="test-{{parentId}}_{{nickname}}">
                         <div class="sandbox_header mb-5" data-content>
-                            <input class="submit btn btn-primary text-uppercase" name="commit" type="submit" value="Try"
+                            <input class="submit btn btn-primary" name="commit" type="submit" value="Test Endpoint"
                                    data-toggle="modal" data-target="#get_clients-modal-request">
 
                             {{#oauth}}
-                                <button type="button" class="api-ic ic-off float-right btn btn-outline-secondary text-uppercase">Oauth</button>
+                                <button type="button" class="api-ic ic-off float-right btn btn-outline-secondary">Oauth</button>
                             {{/oauth}}
                         </div>
                         {{#if type}}
@@ -78,7 +76,7 @@
                             {{summary}} <span class="http_method badge {{#if deprecated}}badge-secondary{{else}}{{methodBadgeClass method}}{{/if}}">{{method}}</span>
                         </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                            <i class="fal fa-times"></i>
                         </button>
                     </div>
                     <div class="modal-body">

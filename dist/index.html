@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <title>Bootstrap Swagger UI</title> 
 
-    <link href="css/style.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
     <link rel="icon" href="https://getbootstrap.com/favicon.ico">
 </head>
 
@@ -43,27 +43,25 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="https://use.fontawesome.com/d4915d92d6.js" type="text/javascript"></script>
-    <script>window.jQuery || document.write('<script src="lib/jquery-3.2.1.min.js"><\/script>')</script>
+    <script>window.jQuery || document.write('<script src="assets/lib/jquery-3.2.1.min.js"><\/script>')</script>
     
-    <!-- Original Dependencies -->
-    <script src="lib/jquery.wiggle.min.js" type="text/javascript"></script>
-    <script src="lib/handlebars-2.0.0.js" type="text/javascript"></script>
-    <script src="lib/underscore-min.js" type="text/javascript"></script>
-    <script src="lib/backbone-min.js" type="text/javascript"></script>
-    <script src="swagger-ui.js" type="text/javascript"></script>
-    <script src="lib/marked.js" type="text/javascript"></script>
-    <script src="lib/swagger-oauth.js" type="text/javascript"></script>
-    
-    <!-- Newer Dependencies -->
-    <script src="lib/bootstrap.min.js" type="text/javascript"></script>
-    <script src="lib/highlight.pack.js" type="text/javascript"></script>
-    <script src="lib/scrollPosStyler.js" type="text/javascript"></script>
+    <!-- Dependencies -->
+    <script src="assets/lib/jquery.wiggle.min.js" type="text/javascript"></script>
+    <script src="assets/lib/handlebars-2.0.0.js" type="text/javascript"></script>
+    <script src="assets/lib/underscore-min.js" type="text/javascript"></script>
+    <script src="assets/lib/backbone-min.js" type="text/javascript"></script>
+    <script src="assets/swagger-ui.js" type="text/javascript"></script>
+    <script src="assets/lib/marked.js" type="text/javascript"></script>
+    <script src="assets/lib/bootstrap.min.js" type="text/javascript"></script>
+    <script src="assets/lib/highlight.pack.js" type="text/javascript"></script>
+    <script src="assets/lib/scrollPosStyler.min.js" type="text/javascript"></script>
+    <script src="assets/lib/fontawesome-all.min.js" type="text/javascript"></script>
+    <script src="assets/lib/swagger-oauth.js" type="text/javascript"></script>
 
     <script type="text/javascript">
         $(function () {
             window.swaggerUi = new SwaggerUi({
-                url: '/petstore.json', // Required
+                url: 'assets/samples/petstore.json', // Change to your json
                 dom_id: "swagger-ui-container",
                 supportedSubmitMethods: ['get', 'post', 'put', 'delete', 'patch', 'head', 'options'],
                 onComplete: function (swaggerApi, swaggerUi) {
@@ -80,7 +78,7 @@
                     }
 
                     // Set Key by default
-                    addApiKeyAuthorization();
+                    // addApiKeyAuthorization();
                 },
                 onFailure: function (data) {
                     console.log("Unable to Load SwaggerUI");

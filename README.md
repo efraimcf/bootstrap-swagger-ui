@@ -24,13 +24,10 @@ Give it a [try](http://swagger-ui.andresthegiant.com/?url=http://petstore.swagge
 ### Updating ui-assets
 
 ```
-git subtree split --branch ui-assets --prefix dist/assets/
-
-git subtree push --prefix dist/assets/ --squash \ git://github.com/afgarcia86/bootstrap-swagger-ui ui-assets
-
+git subtree split --branch ui-assets --prefix dist/assets/ && git checkout ui-assets && git push && git checkout master
 ```
 
-*Add Theme As Submodule*
+*Add assets as submodule*
 
 ```
 git submodule add -b ui-assets --name bootstrap-swagger-ui -- https://github.com/afgarcia86/bootstrap-swagger-ui openapi/ui/assets

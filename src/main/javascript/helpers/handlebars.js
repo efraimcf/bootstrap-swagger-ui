@@ -32,7 +32,6 @@ Handlebars.registerHelper('showAuth', function(obj) {
 });
 
 Handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
-
     switch (operator) {
         case '==':
             return (v1 == v2) ? options.fn(this) : options.inverse(this);
@@ -57,4 +56,20 @@ Handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
         default:
             return options.inverse(this);
     }
+});
+
+Handlebars.registerHelper('conditions', function (options) {
+    var data = this;
+    data.__check_conditions = true;
+    return options.fn(this);
+});
+
+
+Handlebars.registerHelper('next', function(conditional, options) {
+  if(conditional && this.__check_conditions) {
+      this.__check_conditions = false;
+      return options.fn(this);
+  } else {
+      return options.inverse(this);
+  }
 });

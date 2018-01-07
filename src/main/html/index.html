@@ -65,6 +65,10 @@
                 dom_id: "swagger-ui-container",
                 supportedSubmitMethods: ['get', 'post', 'put', 'delete', 'patch', 'head', 'options'],
                 onComplete: function (swaggerApi, swaggerUi) {
+                    // if(typeof initOAuth == "function") {
+                    //     initOAuth()
+                    // }
+                    
                     $('pre code').each(function (i, e) {
                         hljs.highlightBlock(e)
                     });

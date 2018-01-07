@@ -25,6 +25,9 @@ Give it a [try](http://swagger-ui.andresthegiant.com/?url=http://petstore.swagge
 
 ```
 git subtree split --branch ui-assets --prefix dist/assets/
+
+git subtree push --prefix dist/assets/ --squash \ git://github.com/afgarcia86/bootstrap-swagger-ui ui-assets
+
 ```
 
 *Add Theme As Submodule*

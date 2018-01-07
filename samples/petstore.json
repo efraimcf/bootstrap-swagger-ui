@@ -61,6 +61,7 @@
           {
             "in": "body",
             "name": "body",
+            "readOnly": true,
             "description": "Pet object that needs to be added to the store",
             "required": true,
             "schema": {
@@ -147,7 +148,8 @@
             "in": "query",
             "description": "Status values that need to be considered for filter",
             "required": true,
-            "type": "array",
+            "type": "array",            
+            "readOnly": true,
             "items": {
               "type": "string",
               "enum": [

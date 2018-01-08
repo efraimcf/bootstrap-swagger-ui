@@ -36,6 +36,9 @@ git read-tree --prefix=openapi/ui/assets -u bootstrap-swagger-ui/ui-assets
 git commit -m "Merged bootstrap-swagger-ui ui-assets as subdirectory"
 ```
 
+*update subtree*
+`git pull -s subtree bootstrap-swagger-ui ui-assets`
+
 ## Disclaimer
 
 This is not a fully polished implementation and should be used with care.

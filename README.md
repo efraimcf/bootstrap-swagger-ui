@@ -27,11 +27,13 @@ Give it a [try](http://swagger-ui.andresthegiant.com/?url=http://petstore.swagge
 git subtree split --branch ui-assets --prefix dist/assets/ && git checkout ui-assets && git push && git checkout master
 ```
 
-*Add assets as submodule*
+*Add assets as subtree*
 
 ```
-git submodule add -b ui-assets --name bootstrap-swagger-ui -- https://github.com/afgarcia86/bootstrap-swagger-ui openapi/ui/assets
-git submodule update --remote
+git remote add -f bootstrap-swagger-ui git@github.com:afgarcia86/bootstrap-swagger-ui.git
+git merge -s ours --no-commit bootstrap-swagger-ui/ui-assets
+git read-tree --prefix=openapi/ui/assets -u bootstrap-swagger-ui/ui-assets
+git commit -m "Merged bootstrap-swagger-ui ui-assets as subdirectory"
 ```
 
 ## Disclaimer

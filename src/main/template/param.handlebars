@@ -23,9 +23,9 @@
                 Choose file
             </label>
         {{else}}{{#if isBody}}
-            <textarea class="body-textarea form-control {{#if required}}required{{/if}}" {{#if readOnly}}readonly disabled{{/if}} placeholder="{{#if required}}(required){{else}}{{default}}{{/if}}" name="{{name}}" rows="3">{{#if required}}{{default}}{{/if}}</textarea>
+            <textarea class="body-textarea form-control {{#if required}}required{{/if}}" {{#if readOnly}}readonly disabled{{/if}} placeholder="{{#if required}}(required) {{/if}}{{example}}" name="{{name}}" rows="3">{{default}}</textarea>
         {{else}}
-            <input class="parameter form-control {{#if required}}required{{/if}}" {{#if readOnly}}readonly disabled{{/if}} minlength="{{#if required}}1{{else}}0{{/if}}" name="{{name}}" placeholder="{{#if required}}(required){{else}}{{default}}{{/if}}" type="{{inputType}}" value="{{#if required}}{{default}}{{/if}}" />
+            <input class="parameter form-control {{#if required}}required{{/if}}" {{#if readOnly}}readonly disabled{{/if}} minlength="{{#if required}}1{{else}}0{{/if}}" name="{{name}}" placeholder="{{#if required}}(required) {{/if}}{{example}}" type="{{inputType}}" value="{{default}}" />
         {{/if}}{{/if}}{{/if}}
         <div class="parameter-content-type"/>
         <div class="small-description media mt-2">

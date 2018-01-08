@@ -31,13 +31,13 @@ git subtree split --branch ui-assets --prefix dist/assets/ && git checkout ui-as
 
 ```
 git remote add -f bootstrap-swagger-ui git@github.com:afgarcia86/bootstrap-swagger-ui.git
-git merge -s ours --no-commit bootstrap-swagger-ui/ui-assets
-git read-tree --prefix=openapi/ui/assets -u bootstrap-swagger-ui/ui-assets
+git merge -s ours --no-commit bootstrap-swagger-ui/ui-assets --allow-unrelated-histories
+git read-tree --prefix=api/app/lib/openapi/ui/assets -u bootstrap-swagger-ui/ui-assets
 git commit -m "Merged bootstrap-swagger-ui ui-assets as subdirectory"
 ```
 
 *update subtree*
-`git pull -s subtree bootstrap-swagger-ui ui-assets`
+`git pull -s subtree bootstrap-swagger-ui ui-assets --allow-unrelated-histories`
 
 ## Disclaimer
 

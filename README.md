@@ -27,17 +27,15 @@ Give it a [try](http://swagger-ui.andresthegiant.com/?url=http://petstore.swagge
 git subtree split --branch ui-assets --prefix dist/assets/ && git checkout ui-assets && git push && git checkout master
 ```
 
-*Add assets as subtree*
-
+*Adding as subtree to another repository*
 ```
-git remote add -f bootstrap-swagger-ui git@github.com:afgarcia86/bootstrap-swagger-ui.git
-git merge -s ours --no-commit bootstrap-swagger-ui/ui-assets --allow-unrelated-histories
-git read-tree --prefix=api/app/lib/openapi/ui/assets -u bootstrap-swagger-ui/ui-assets
-git commit -m "Merged bootstrap-swagger-ui ui-assets as subdirectory"
+git subtree add --prefix api/app/lib/openapi/ui/assets https://github.com/afgarcia86/bootstrap-swagger-ui ui-assets --squash
 ```
 
-*update subtree*
-`git pull -s subtree bootstrap-swagger-ui ui-assets --allow-unrelated-histories`
+*Update subtree*
+````
+git subtree pull --prefix api/app/lib/openapi/ui/assets https://github.com/afgarcia86/bootstrap-swagger-ui ui-assets --squash
+```
 
 ## Disclaimer
 
